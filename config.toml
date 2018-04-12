@@ -1,0 +1,4 @@
+baseURL = "http://lqhl.github.io"
+languageCode = "zh-Hans"
+title = "Qin's Blog"
+theme = "ananke"
