@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>system on 巴别之塔</title>
+    <link>https://lqhl.github.io/blog/system/</link>
+    <description>Recent content in system on 巴别之塔</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <copyright>Copyright © 2021, lqhl.</copyright>
+    <lastBuildDate>Thu, 10 Jun 2021 19:46:35 +0800</lastBuildDate><atom:link href="https://lqhl.github.io/blog/system/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>深度神经网络编译器调研</title>
+      <link>https://lqhl.github.io/a-survey-on-dnn-compiler/</link>
+      <pubDate>Thu, 10 Jun 2021 19:46:35 +0800</pubDate>
+      
+      <guid>https://lqhl.github.io/a-survey-on-dnn-compiler/</guid>
+      <description>在墨奇科技，我们需要将一些包含深度神经网络（DNN）的 AI 算法移植到边缘端的设备， 这些设备往往使用 ARM 架构的 CPU 和一些特殊的边缘端推理芯片（NPU）。这个时候，我 们可以使用 NPU 产商提供的推理框架（例如瑞芯微的 rknn-toolkit）或 TensorFlow Lite 这样的通用边缘端推理框架。另一个选择是使用深度神经网络编译器，自动化的生 成对模型和硬件最适合的机器代码。我们将这个领域内的一些论文和开源项目进行了梳理。
+为什么需要深度神经网络编译器？ 深度学习在我们的日常生活中无处不在。深度神经网络（DNN）可以识别图像，处理自然语 言，甚至在一些很有挑战性的策略游戏中击败人类。当前的深度学习框架，如 TensorFlow1、MXNet2 和 PyTorch3，支持使用 GPU 加速深度学习模型的训练 和推理，这种支持依赖于由 GPU 产商提供的高度优化的张量算子库（比如 NVIDIA 的 cuDNN）。对于一个张量算子，存在许多逻辑上等效的实现，但由于线程、内存重用、流水 线和其他硬件因素的差异，这些实现在性能上会有很大差距。为了优化张量算子，程序员必 须从这些逻辑等效的实现中选择性能最好的。这些算子级别的优化需要大量的手动调整，非 常的专业和不透明，而且无法轻松地跨硬件设备移植。因此，一个深度学习框架如果想要支 持不同的硬件后端，需要大量的工程工作。即使在当前受支持的硬件上，开发深度学习框架 和模型也受到库中优化算子集合的限制，从而阻止了可能产生不受支持的算子的优化（例如 计算图优化和算子融合）。
+从云服务器到自动驾驶汽车和嵌入式设备，我们需要将包含 DNN 的 AI 应用程序部署到各 种各样不同的设备上。由于硬件的多样性，存在 CPU、GPU、ASIC（如 TPC 和 NPU）、FPGA 等不同类型的硬件，这些硬件的设计目标在内存组织、计算功能单元等方面都有很大的不同 （下图展示了 CPU、GPU 和 TPU 的不同内存组织和计算功能单元），将深度学习模型映射 到这些硬件设备变得很复杂。深度学习框架依靠计算图的中间表示来实现优化，例如自动微 分和动态内存管理。但是，计算图级别的优化通常过于高级，无法处理特定硬件后端的算子 级转换 。
+为了在不同的硬件后端上同时实现计算图级别和算子级别的优化，让深度学习计算被更广泛 的应用，我们需要一套自动化的针对不同硬件后端的深度学习编译技术。
+主要工作 这节我们介绍深度学习编译技术中的一些代表性工作。
+TVM 为了解决上一节所说的种种问题，陈天奇等人提出了 TVM4，第一个端到端的深度学习自 动编译和代码生成方法。TVM 允许将高级框架（如 TensorFlow、MXNet、PyTorch 等）专用 的深度学习网络部署到多种硬件后端上（包括 CPU、GPU 和基于 FPGA 的加速器）。在设计 上，TVM 结合了内存访问、线程模式和新的硬件元语，建立一个足够大的搜索空间，保证可 能的人工工程优化全部包含在这个搜索空间里面。TVM 通过快速的搜索这个搜索空间，生成 可部署代码。其性能可与当前最优的硬件供应商库相比，且可适应新型专用加速器后端。</description>
+    </item>
+    
+    <item>
+      <title>持久内存在图像搜索中的应用</title>
+      <link>https://lqhl.github.io/persistent-memory/</link>
+      <pubDate>Thu, 01 Apr 2021 11:11:34 +0800</pubDate>
+      
+      <guid>https://lqhl.github.io/persistent-memory/</guid>
+      <description>原文发表于墨奇博客：https://blog.moqi.com.cn/persistent-memory/
+ 在墨奇科技，我们用基于向量（vector）和图（graph）的近似搜索算法，构建高精度的大规模图像搜索引擎。目前，在 20 亿级别的指纹图像上，我们可以做到精确搜索的秒级响应。在这个过程中，我们将英特尔 ® 傲腾™持久内存融合到了图像搜索引擎中，使得系统的整体性价比得到了大幅度的提升。这个改进的核心是使用英特尔 ® 傲腾™持久内存的 App Direct 模式代替内存作为向量和图索引结构的缓存，在维持较高性能的同时，大幅度降低了内存开销。下面我们开始介绍整体方案。
+背景 – 墨奇图像搜索系统 下图是墨奇图像搜索系统的架构。在插入一张图片时，我们先将图片存储到分布式文件系统中，然后结合一些计算机视觉算法和深度学习模型对图像进行特征提取，图像的特征一般可以表示为向量或图。对于每张图像，我们首先用深度学习模型得到一个高维的向量表示（vector/embedding）。其次，我们会对图像进行特征点检测，我们将特征点当做点（vertex），在相似的特征点之间连上边（edge），组成一个图（graph）。图中的点和边有时候也会带上更多的信息，如点的属性（如位置、方向和类型）和点周围图像的向量表示。对于库中的所有候选图像，在提取出特征后，我们将特征均匀的分配到图像搜索服务器上，并在内存中建立索引。在搜索时，用户的图片在经过特征提取服务器之后提取出来的特征，会被发送到图像搜索服务器上进行检索。
+我们的图像搜索服务器架构如下图所示。在图像搜索服务器中，我们将特征索引文件缓存在内存之中，搜索分为 GPU 检索和 CPU 检索两个步骤：我们先用 GPU 检索快速的筛选候选图片，然后再用 CPU 进行精确检索。关于在图像搜索中的异构计算（主要是 GPU），我们在《异构计算》中进行了介绍。图像搜索服务器的一个问题在于，为了实现高速的检索，它需要使用大量的内存来缓存特征索引文件，这大大提高了硬件成本。我们曾尝试将部分索引文件放到高性能的 NVMe SSD 上，发现对于性能有较大的损失。
+什么是持久内存？ **持久内存（英语：persistent memory，缩写 PMEM）**是一种新的存储介质，它是一种驻留在内存总线上的字节可寻址（byte-addressable）的高性能非易失存储设备。由于 PMEM 驻留在内存总线上，它可以像 DRAM 一样访问数据，这意味着 PMEM 具有与 DRAM 接近的速度和延迟以及 NAND 闪存的非易失性。下图是 PMEM 和 DRAM 的实物图，可以看到，在外观和接口上，PMEM 与 DRAM 类似。
+由于硬件技术的限制，存储设备商可以制造出容量小访问速度快但单价较贵的存储器（如 CPU Cache 和 DRAM），也可以制造出容量大访问速度慢而廉价的存储器（如硬盘和磁带），但很难制造出访问速度快容量大还很便宜的存储器。因此，现代计算机通常将存储器分成若干级，称为存储器层次结构（如下图），按照离 CPU 由近到远的顺序依次是 CPU 寄存器、CPU Cache、内存（DRAM）、SSD 闪存、硬盘和磁带，越靠近 CPU 的存储器容量越小访问速度越快但越昂贵。
+如下图所示，PMEM 的出现，在存储器层次结构上增添了新的一层。PMEM 兼具 DRAM 和 SSD 的一些优点：</description>
+    </item>
+    
+    <item>
+      <title>新一代的 Serverless Computing - Hydro 项目介绍</title>
+      <link>https://lqhl.github.io/hydro/</link>
+      <pubDate>Wed, 17 Feb 2021 13:03:57 +0800</pubDate>
+      
+      <guid>https://lqhl.github.io/hydro/</guid>
+      <description>Hydro 是 Joseph M. Hellerstein 教授在 UC Berkeley 的 RISELab（算是 AMPLab 的继承者）开展的项目。要了解 Hydro，可以从他们最近的一篇总结性博客开始看起：The State of the Serverless Art，然后再看它主页上罗列的论文。
+背景 - 无服务器计算 Hydro 项目的目标是创造一个适合于云计算的编程环境。目前大部分人是如何做云计算的呢？我们可能会开一定数量的 Amazon EC2 虚拟机，然后在上面安装依赖包，启动我们的程序。在这中间，我们要处理很多机器管理、容错、通讯的问题。在 Joe 教授的眼中，在云上如此编程，类似于在计算机发展的早期时代我们直接写汇编代码，非常的落后。那么在云计算的时代，正确的姿势应该是什么样的呢？UC Berkeley 的一些系统大佬在 2019 年的 Berkeley view1 中指出，云计算的未来是无服务器计算（serverlesss computing）。在无服务器计算中，用户只要定义需要计算的函数，计算所需的资源都有云计算提供商来管理，类似的服务有 Amazon Lamda、Azure Functions 和 Google Cloud Functions。话说，基本同一批的系统界大佬在 2009 年出过一个云计算的 Berkeley view2，其中很多看法都已经被验证；2019 年的这版是他们的一个回顾与更新。
+问题是，现在无服务器计算并不完美，Joe 在一篇论文中指出无服务器计算相比之前的云计算是「进一步，退两步」3：
+ 进步：自动伸缩（autoscaling）。用户不需要关心有多少的虚拟机在进行计算，云计算提供商会自动的扩缩容。 退步：数据访问慢。在现有的无服务器计算中，用户只能访问 Amazon S3 和 DynamoDB 这样的服务，这些存储服务或数据库比本地 SSD 之类的存储介质可慢多了。 退步：无法进行分布式计算。要进行分布式计算，需要进行通信，而基于存储的通信太慢了，现有的无服务器计算框架中又不能直接进行网路通信。  解决之道 - Anna 和 Cloudburst 当然，Joe 的目标并不是贬低无服务器计算，而是希望通过 Hydro 项目构建出一个他理想中的无服务器计算平台：stateful serverless infrastructure。首先，Joe 和他的博士生 Chenggang Wu 构建了名为 Anna 的 key-value 存储系统（Anna 分别获得了 ICDE&#39;18 和 VLDB&#39;19 的最佳论文奖）。下面说一下 Anna 的主要特性：</description>
+    </item>
+    
+    <item>
+      <title>[DRAFT] OSDI 2020 学习笔记</title>
+      <link>https://lqhl.github.io/osdi-2020/</link>
+      <pubDate>Sun, 08 Nov 2020 23:32:00 +0800</pubDate>
+      
+      <guid>https://lqhl.github.io/osdi-2020/</guid>
+      <description>This is a work in progress&amp;hellip;
+ Correctness Theseus: an Experiment in Operating System Structure and State Management 传统的 OS 中不同进程会共享很多状态，这会导致 state spill 的问题，即一个系统服务的崩溃，可能导致整个系统的崩溃，这时候其他不使用这个系统服务的进程的数据也会丢失。作者利用 Rust 语言中 memory ownership model 的特性实现了不同内核模块之间的 isolation 和 zero-cost state transfer，从而增强了系统的 evolvability 和 availability，能够实现比传统 OS 更强的 live evolution (我理解为加强版的的 live update) 和 fault recovery。他们通过一种名为 intralingual 的设计，让 Rust 编译器来保证他们的操作系统（名为 Theseus）实现是正确的。
+RedLeaf: Isolation and Communication in a Safe Operating System 也是一个用 Rust 写的 OS，利用 Rust 的内存安全特性，不依赖硬件而实现了不同模块的隔离。在这个名为 RedLeaf 的 OS 上，作者实现了 10Gbps 网卡和 NVMe SSD 的驱动程序，并达到了和 DPDK/SPDK 相同的性能。说明 Rust 写的 OS 既安全，性能又好。</description>
+    </item>
+    
+  </channel>
+</rss>

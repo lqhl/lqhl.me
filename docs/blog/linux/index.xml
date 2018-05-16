@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>linux on 巴别之塔</title>
+    <link>https://lqhl.github.io/blog/linux/</link>
+    <description>Recent content in linux on 巴别之塔</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <copyright>Copyright © 2021, lqhl.</copyright>
+    <lastBuildDate>Fri, 14 Sep 2018 20:26:21 +0800</lastBuildDate><atom:link href="https://lqhl.github.io/blog/linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Linux Network Tuning - 10 GE</title>
+      <link>https://lqhl.github.io/linux-network-tuning-10ge/</link>
+      <pubDate>Fri, 14 Sep 2018 20:26:21 +0800</pubDate>
+      
+      <guid>https://lqhl.github.io/linux-network-tuning-10ge/</guid>
+      <description>最近在研究如何为公司搭建 40/100 GE，在购买新设备之前，决定先在现有的 10 GE 网络上做一些 benchmark。 做完才发现现有的网络利用率还有不少的提高空间。
+测试方式 测试机器
+ Server-A：用于运行 NFS 服务器（IP: 10.1.1.1） Client-B: 用于运行 NFS 的客户端  用 iperf 测试网速 在 Server-A 上：
+iperf3 -s -p 12000 -i1 在 Client-B 上：
+iperf3 -c storage0002 -p 12000 -i1 -t 30 用 fio 测试 NFS 的性能 在 Client-B 上 mount NFS（假设 Server-A 在 /srv/nfs 上配置了一个 NFS）：
+sudo mount 10.1.1.1:/srv/nfs /mnt/tmp -v Fio 的测试文件 read.fio:
+[global] bs=2M iodepth=1 direct=1 ioengine=libaio randrepeat=0 group_reporting time_based runtime=60 filesize=2G numjobs=4 [job] rw=read filename=/mnt/tmp/test name=read 运行 fio 测试：</description>
+    </item>
+    
+    <item>
+      <title>如何成为系统管理员（sysadmin）？</title>
+      <link>https://lqhl.github.io/how-to-become-a-sysadmin/</link>
+      <pubDate>Thu, 31 May 2018 20:50:11 +0800</pubDate>
+      
+      <guid>https://lqhl.github.io/how-to-become-a-sysadmin/</guid>
+      <description>Linux 入门学习 实践课程：
+ Teeny Tiny Linux Server Course  参考书：
+ 鳥哥的 Linux 私房菜 — 基礎學習篇 The Linux Command Line by William E. Shotts, Jr.  中文版    寻求帮助：
+ 善用 Google 和 Stackoverflow RTFM: read the fucking manual! Reddit: r/linuxadmin/, r/linux_mentor  Linux 的进阶学习 Reddit 上有一个非常好的 list，列出了成为一名 Linux 系统管理员需要学习的内容，可以作为进阶学习的参考：How did you get your start? : linuxadmin。
+ This is what I tell people to do, who ask me &amp;ldquo;how do I learn to be a Linux sysadmin?</description>
+    </item>
+    
+    <item>
+      <title>链路聚合</title>
+      <link>https://lqhl.github.io/link-aggregation/</link>
+      <pubDate>Tue, 15 May 2018 12:22:34 +0800</pubDate>
+      
+      <guid>https://lqhl.github.io/link-aggregation/</guid>
+      <description>链路聚合（bonding or link aggregation）将多个物理网卡捆绑在一起，形成一个逻辑端口。它可以用于增加链路带宽和提供链路的冗余与容错。 以下是我参考 Ubuntu Bonding 后在 Ubuntu 16.04 上配置的步骤：
+  安装：
+sudo apt-get install ifenslave   载入提供 bonding 的 kernel module：
+sudo modprobe bonding   在电脑启动时自动载入 bonding 模块，将 bonding 加入 /etc/modules：
+# /etc/modules: kernel modules to load at boot time. # # This file contains the names of kernel modules that should be loaded # at boot time, one per line. Lines beginning with &amp;#34;#&amp;#34; are ignored.</description>
+    </item>
+    
+  </channel>
+</rss>

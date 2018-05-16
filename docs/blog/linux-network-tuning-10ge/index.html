@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta http-equiv="X-Clacks-Overhead" content="GNU Terry Pratchett" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Linux Network Tuning - 10 GE | 巴别之塔</title>
+<meta name="title" content="Linux Network Tuning - 10 GE" />
+<meta name="description" content="最近在研究如何为公司搭建 40/100 GE，在购买新设备之前，决定先在现有的 10 GE 网络上做一些 benchmark。 做完才发现现有的网络利用率还有不少的提高空间。
+测试方式 测试机器
+ Server-A：用于运行 NFS 服务器（IP: 10.1.1.1） Client-B: 用于运行 NFS 的客户端  用 iperf 测试网速 在 Server-A 上：
+iperf3 -s -p 12000 -i1 在 Client-B 上：
+iperf3 -c storage0002 -p 12000 -i1 -t 30 用 fio 测试 NFS 的性能 在 Client-B 上 mount NFS（假设 Server-A 在 /srv/nfs 上配置了一个 NFS）：
+sudo mount 10.1.1.1:/srv/nfs /mnt/tmp -v Fio 的测试文件 read.fio:
+[global] bs=2M iodepth=1 direct=1 ioengine=libaio randrepeat=0 group_reporting time_based runtime=60 filesize=2G numjobs=4 [job] rw=read filename=/mnt/tmp/test name=read 运行 fio 测试：" />
+<meta name="keywords" content="linux,networking," />
+
+
+<meta property="og:title" content="Linux Network Tuning - 10 GE" />
+<meta property="og:description" content="最近在研究如何为公司搭建 40/100 GE，在购买新设备之前，决定先在现有的 10 GE 网络上做一些 benchmark。 做完才发现现有的网络利用率还有不少的提高空间。
+测试方式 测试机器
+ Server-A：用于运行 NFS 服务器（IP: 10.1.1.1） Client-B: 用于运行 NFS 的客户端  用 iperf 测试网速 在 Server-A 上：
+iperf3 -s -p 12000 -i1 在 Client-B 上：
+iperf3 -c storage0002 -p 12000 -i1 -t 30 用 fio 测试 NFS 的性能 在 Client-B 上 mount NFS（假设 Server-A 在 /srv/nfs 上配置了一个 NFS）：
+sudo mount 10.1.1.1:/srv/nfs /mnt/tmp -v Fio 的测试文件 read.fio:
+[global] bs=2M iodepth=1 direct=1 ioengine=libaio randrepeat=0 group_reporting time_based runtime=60 filesize=2G numjobs=4 [job] rw=read filename=/mnt/tmp/test name=read 运行 fio 测试：" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://lqhl.github.io/blog/linux-network-tuning-10ge/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2018-09-14T20:26:21+08:00" />
+<meta property="article:modified_time" content="2018-09-14T20:26:21+08:00" /><meta property="og:site_name" content="巴别之塔" />
+
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Linux Network Tuning - 10 GE"/>
+<meta name="twitter:description" content="最近在研究如何为公司搭建 40/100 GE，在购买新设备之前，决定先在现有的 10 GE 网络上做一些 benchmark。 做完才发现现有的网络利用率还有不少的提高空间。
+测试方式 测试机器
+ Server-A：用于运行 NFS 服务器（IP: 10.1.1.1） Client-B: 用于运行 NFS 的客户端  用 iperf 测试网速 在 Server-A 上：
+iperf3 -s -p 12000 -i1 在 Client-B 上：
+iperf3 -c storage0002 -p 12000 -i1 -t 30 用 fio 测试 NFS 的性能 在 Client-B 上 mount NFS（假设 Server-A 在 /srv/nfs 上配置了一个 NFS）：
+sudo mount 10.1.1.1:/srv/nfs /mnt/tmp -v Fio 的测试文件 read.fio:
+[global] bs=2M iodepth=1 direct=1 ioengine=libaio randrepeat=0 group_reporting time_based runtime=60 filesize=2G numjobs=4 [job] rw=read filename=/mnt/tmp/test name=read 运行 fio 测试："/>
+
+
+
+<meta itemprop="name" content="Linux Network Tuning - 10 GE">
+<meta itemprop="description" content="最近在研究如何为公司搭建 40/100 GE，在购买新设备之前，决定先在现有的 10 GE 网络上做一些 benchmark。 做完才发现现有的网络利用率还有不少的提高空间。
+测试方式 测试机器
+ Server-A：用于运行 NFS 服务器（IP: 10.1.1.1） Client-B: 用于运行 NFS 的客户端  用 iperf 测试网速 在 Server-A 上：
+iperf3 -s -p 12000 -i1 在 Client-B 上：
+iperf3 -c storage0002 -p 12000 -i1 -t 30 用 fio 测试 NFS 的性能 在 Client-B 上 mount NFS（假设 Server-A 在 /srv/nfs 上配置了一个 NFS）：
+sudo mount 10.1.1.1:/srv/nfs /mnt/tmp -v Fio 的测试文件 read.fio:
+[global] bs=2M iodepth=1 direct=1 ioengine=libaio randrepeat=0 group_reporting time_based runtime=60 filesize=2G numjobs=4 [job] rw=read filename=/mnt/tmp/test name=read 运行 fio 测试："><meta itemprop="datePublished" content="2018-09-14T20:26:21+08:00" />
+<meta itemprop="dateModified" content="2018-09-14T20:26:21+08:00" />
+<meta itemprop="wordCount" content="414">
+<meta itemprop="keywords" content="linux,networking," />
+<meta name="referrer" content="no-referrer-when-downgrade" />
+
+  <style>
+  body {
+    font-family: Verdana, sans-serif;
+    margin: auto;
+    padding: 20px;
+    max-width: 720px;
+    text-align: left;
+    background-color: #fff;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+    color: #444;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  strong,
+  b {
+    color: #222;
+  }
+
+  a {
+    color: #3273dc;
+     
+  }
+
+  .title {
+    text-decoration: none;
+    border: 0;
+  }
+
+  .title span {
+    font-weight: 400;
+  }
+
+  nav a {
+    margin-right: 10px;
+  }
+
+  textarea {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  input {
+    font-size: 16px;
+  }
+
+  content {
+    line-height: 1.6;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  code {
+    padding: 2px 5px;
+    background-color: #f2f2f2;
+  }
+
+  pre code {
+    color: #222;
+    display: block;
+    padding: 20px;
+    white-space: pre-wrap;
+    font-size: 14px;
+  }
+
+  blockquote {
+    border-left: 1px solid #999;
+    color: #222;
+    padding-left: 20px;
+    font-style: italic;
+  }
+
+  footer {
+    padding: 25px;
+    text-align: center;
+  }
+
+  .helptext {
+    color: #777;
+    font-size: small;
+  }
+
+  .errorlist {
+    color: #eba613;
+    font-size: small;
+  }
+
+   
+  ul.blog-posts {
+    list-style-type: none;
+    padding: unset;
+  }
+
+  ul.blog-posts li {
+    display: flex;
+  }
+
+  ul.blog-posts li span {
+    flex: 0 0 130px;
+  }
+
+  ul.blog-posts li a:visited {
+    color: #8b6fcb;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    body {
+      background-color: #333;
+      color: #ddd;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    strong,
+    b {
+      color: #eee;
+    }
+
+    a {
+      color: #8cc2dd;
+    }
+
+    code {
+      background-color: #777;
+    }
+
+    pre code {
+      color: #ddd;
+    }
+
+    blockquote {
+      color: #ccc;
+    }
+
+    textarea,
+    input {
+      background-color: #252525;
+      color: #ddd;
+    }
+
+    .helptext {
+      color: #aaa;
+    }
+  }
+
+</style>
+<script>
+  MathJax = {
+    tex: {
+      inlineMath: [["$", "$"]],
+    },
+    displayMath: [
+      ["$$", "$$"],
+      ["\[\[", "\]\]"],
+    ],
+    svg: {
+      fontCache: "global",
+    },
+  };
+</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+></script>
+</head>
+
+<body>
+  <header><a href="/" class="title">
+  <h2>巴别之塔</h2>
+</a>
+<nav><a href="/">Home</a>
+
+
+<a href="/blog">Blog</a>
+
+<a href="/index.xml">RSS</a>
+</nav>
+</header>
+  <main>
+
+<h1>Linux Network Tuning - 10 GE</h1>
+<p>
+  <i>
+    <time datetime='2018-09-14' pubdate>
+      14 Sep, 2018
+    </time>
+  </i>
+</p>
+
+<content>
+  <p>最近在研究如何为公司搭建 40/100 GE，在购买新设备之前，决定先在现有的 10 GE 网络上做一些 benchmark。
+做完才发现现有的网络利用率还有不少的提高空间。</p>
+<h2 id="测试方式">测试方式</h2>
+<p>测试机器</p>
+<ul>
+<li>Server-A：用于运行 NFS 服务器（IP: <code>10.1.1.1</code>）</li>
+<li>Client-B: 用于运行 NFS 的客户端</li>
+</ul>
+<h3 id="用-iperf-测试网速">用 iperf 测试网速</h3>
+<p>在 Server-A 上：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">iperf3 -s -p <span style="color:#099">12000</span> -i1
+</code></pre></div><p>在 Client-B 上：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">iperf3 -c storage0002 -p <span style="color:#099">12000</span> -i1 -t <span style="color:#099">30</span>
+</code></pre></div><h3 id="用-fio-测试-nfs-的性能">用 fio 测试 NFS 的性能</h3>
+<p>在 Client-B 上 mount NFS（假设 Server-A 在 <code>/srv/nfs</code> 上配置了一个 NFS）：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo mount 10.1.1.1:/srv/nfs /mnt/tmp -v
+</code></pre></div><p>Fio 的测试文件 <code>read.fio</code>:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#000;font-weight:bold">[global]</span>
+<span style="color:#008080">bs</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">2M</span>
+<span style="color:#008080">iodepth</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">1</span>
+<span style="color:#008080">direct</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">1</span>
+<span style="color:#008080">ioengine</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">libaio</span>
+<span style="color:#008080">randrepeat</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">0</span>
+<span style="color:#008080">group_reporting</span>
+<span style="color:#008080">time_based</span>
+<span style="color:#008080">runtime</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">60</span>
+<span style="color:#008080">filesize</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">2G</span>
+<span style="color:#008080">numjobs</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">4</span>
+
+<span style="color:#000;font-weight:bold">[job]</span>
+<span style="color:#008080">rw</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">read</span>
+<span style="color:#008080">filename</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">/mnt/tmp/test</span>
+<span style="color:#008080">name</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">read</span>
+</code></pre></div><p>运行 fio 测试：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">fio read.fio
+</code></pre></div><h3 id="ubuntu-默认配置下的测试结果">Ubuntu 默认配置下的测试结果</h3>
+<p>iperf 的速度：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">- - - - - - - - - - - - - - - - - - - - - - - - -
+[ ID] Interval           Transfer     Bandwidth       Retr
+[  4]   0.00-30.00  sec  32.9 GBytes  9.41 Gbits/sec  291             sender
+[  4]   0.00-30.00  sec  32.9 GBytes  9.41 Gbits/sec                  receiver
+</code></pre></div><p>可以看到用 iperf 测试时，基本还是把 10 GE 的带宽用满了。</p>
+<p>用 fio 在 NFS 上的测试结果是: <code>7.5 Gbits/sec</code>！大大的低于我们的预期。</p>
+<h2 id="调整-linux-的-tcp-协议栈">调整 Linux 的 TCP 协议栈</h2>
+<p>TCP Tuning 可以参考 ESnet 的经验：<a href="https://fasterdata.es.net/host-tuning/linux/test-measurement-host-tuning/">https://fasterdata.es.net/host-tuning/linux/test-measurement-host-tuning/</a></p>
+<p>Step 1. 配置  Jumbo frames（参考 <a href="https://askubuntu.com/a/122835">https://askubuntu.com/a/122835</a>）：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ip link <span style="color:#0086b3">set</span> &lt;NIC&gt; mtu <span style="color:#099">9000</span>  <span style="color:#998;font-style:italic"># &lt;NIC&gt; 是对外的网卡名称（比如 eth0）</span>
+</code></pre></div><p>Step 2. 调整 kernel 中网络相关的参数，修改 <code>/etc/sysctl.conf</code>：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#998;font-style:italic"># increase TCP max buffer size setable using setsockopt()</span>
+<span style="color:#998;font-style:italic"># allow testing with 256MB buffers</span>
+<span style="color:#008080">net.core.rmem_max</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">268435456 </span>
+<span style="color:#008080">net.core.wmem_max</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">268435456 </span>
+<span style="color:#998;font-style:italic"># increase Linux autotuning TCP buffer limits </span>
+<span style="color:#998;font-style:italic"># min, default, and max number of bytes to use</span>
+<span style="color:#998;font-style:italic"># allow auto-tuning up to 128MB buffers</span>
+<span style="color:#008080">net.ipv4.tcp_rmem</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">4096 87380 134217728</span>
+<span style="color:#008080">net.ipv4.tcp_wmem</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">4096 65536 134217728</span>
+<span style="color:#998;font-style:italic"># recommended to increase this for CentOS6 with 10G NICS or higher</span>
+<span style="color:#008080">net.core.netdev_max_backlog</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">250000</span>
+<span style="color:#998;font-style:italic"># don&#39;t cache ssthresh from previous connection</span>
+<span style="color:#008080">net.ipv4.tcp_no_metrics_save</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">1</span>
+<span style="color:#998;font-style:italic"># Explicitly set htcp as the congestion control: cubic buggy in older 2.6 kernels</span>
+<span style="color:#008080">net.ipv4.tcp_congestion_control</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">htcp</span>
+<span style="color:#998;font-style:italic"># If you are using Jumbo Frames, also set this</span>
+<span style="color:#008080">net.ipv4.tcp_mtu_probing</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">1</span>
+<span style="color:#998;font-style:italic"># recommended for CentOS7/Debian8 hosts</span>
+<span style="color:#008080">net.core.default_qdisc</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">fq</span>
+</code></pre></div><p>使我们对 <code>/etc/sysctl.conf</code> 的改动生效：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sysctl -p
+service nfs-server restart <span style="color:#998;font-style:italic"># 因为我们要用 fio 测试 NFS，所以重启一下 NFS 服务</span>
+</code></pre></div><p>Step 3. 增大 TCP 的 Transmit Queue Length (txqueuelen)</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ifconfig &lt;NIC&gt; txqueuelen <span style="color:#099">10000</span>  <span style="color:#998;font-style:italic"># &lt;NIC&gt; 是对外的网卡名称（比如 eth0）</span>
+</code></pre></div><p>修改 <code>/etc/rc.local</code>，添加以下这行：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">/sbin/ifconfig &lt;NIC&gt; txqueuelen <span style="color:#099">10000</span>  <span style="color:#998;font-style:italic"># &lt;NIC&gt; 是对外的网卡名称（比如 eth0）</span>
+</code></pre></div><h3 id="优化后的测试结果">优化后的测试结果</h3>
+<p>iperf 的测试结果:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">- - - - - - - - - - - - - - - - - - - - - - - - -
+[ ID] Interval           Transfer     Bandwidth       Retr
+[  4]   0.00-30.00  sec  34.6 GBytes  9.90 Gbits/sec  419             sender
+[  4]   0.00-30.00  sec  34.6 GBytes  9.90 Gbits/sec                  receiver
+</code></pre></div><p>iperf 的结果只是稍微高了一点（提升空间本来也不大了）。</p>
+<p>用 fio 在 NFS 上的测试结果：<code>9.76 Gbits/sec</code>。NFS 的性能提升是巨大的，比较有用的一个改动应该是 jumbo frames。
+中间还尝试了 Google 的 BBR 拥塞控制算法，用处并不大。BBR 增对的是广域网上少量丢包的情况，在数据中心的网络中反而可能导致 NFS 的速度变慢。</p>
+
+</content>
+<p>
+  
+  <a href="https://lqhl.github.io/tags/linux/">#linux</a>
+  
+  <a href="https://lqhl.github.io/tags/networking/">#networking</a>
+  
+</p>
+
+  </main>
+  <footer>Made with <a href="https://github.com/janraasch/hugo-bearblog/">Hugo ʕ•ᴥ•ʔ Bear</a>
+</footer>
+
+    
+</body>
+
+</html>

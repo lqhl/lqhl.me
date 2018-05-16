@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>OSDI on 巴别之塔</title>
+    <link>https://lqhl.github.io/blog/osdi/</link>
+    <description>Recent content in OSDI on 巴别之塔</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <copyright>Copyright © 2021, lqhl.</copyright>
+    <lastBuildDate>Sun, 08 Nov 2020 23:32:00 +0800</lastBuildDate><atom:link href="https://lqhl.github.io/blog/osdi/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[DRAFT] OSDI 2020 学习笔记</title>
+      <link>https://lqhl.github.io/osdi-2020/</link>
+      <pubDate>Sun, 08 Nov 2020 23:32:00 +0800</pubDate>
+      
+      <guid>https://lqhl.github.io/osdi-2020/</guid>
+      <description>This is a work in progress&amp;hellip;
+ Correctness Theseus: an Experiment in Operating System Structure and State Management 传统的 OS 中不同进程会共享很多状态，这会导致 state spill 的问题，即一个系统服务的崩溃，可能导致整个系统的崩溃，这时候其他不使用这个系统服务的进程的数据也会丢失。作者利用 Rust 语言中 memory ownership model 的特性实现了不同内核模块之间的 isolation 和 zero-cost state transfer，从而增强了系统的 evolvability 和 availability，能够实现比传统 OS 更强的 live evolution (我理解为加强版的的 live update) 和 fault recovery。他们通过一种名为 intralingual 的设计，让 Rust 编译器来保证他们的操作系统（名为 Theseus）实现是正确的。
+RedLeaf: Isolation and Communication in a Safe Operating System 也是一个用 Rust 写的 OS，利用 Rust 的内存安全特性，不依赖硬件而实现了不同模块的隔离。在这个名为 RedLeaf 的 OS 上，作者实现了 10Gbps 网卡和 NVMe SSD 的驱动程序，并达到了和 DPDK/SPDK 相同的性能。说明 Rust 写的 OS 既安全，性能又好。</description>
+    </item>
+    
+  </channel>
+</rss>

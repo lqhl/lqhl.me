@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>巴别之塔</title>
+    <link>https://lqhl.github.io/</link>
+    <description>Recent content on 巴别之塔</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <copyright>Copyright © 2021, lqhl.</copyright>
+    <lastBuildDate>Sun, 27 Mar 2022 10:50:44 +0800</lastBuildDate><atom:link href="https://lqhl.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[翻译] Snowflake 火箭船背后的火箭</title>
+      <link>https://lqhl.github.io/blog/the-rocket-behind-snowflakes-rocketship/</link>
+      <pubDate>Sun, 27 Mar 2022 10:50:44 +0800</pubDate>
+      
+      <guid>https://lqhl.github.io/blog/the-rocket-behind-snowflakes-rocketship/</guid>
+      <description>原文：The Rocket Behind Snowflake’s Rocketship
+作者：Greg Czajkowski
+译者按：Snowflake 是第一家提供云原生数仓服务的公司。本文中，Snowflake 工程部的高级副总裁 Greg Czajkowski 介绍了他们提供创新产品并保证高质量和快速交付的秘诀。
+ 我们没有一天不被候选人、客户和其他感兴趣的人问及我们如何运作 Snowflake 软件工程部门。我经常听到：「Snowflake 一直在提供真正创新、高质量的产品，而且交付的速度还不断加快。这其中一定有什么秘密」。的确，我们有一个独特的工程团队，并继续雇用世界级的工程师。他们是我们产品背后的驱动力。
+吸引和雇用优秀人才，并致力于解决令人惊叹的雄心勃勃的技术问题，是我们实现 Snowflake 的方式。这三个原则指导我们如何使我们的工程团队、Snowflake，以及随之而来的我们的客户取得成功。
+ 使我们的任务与整个工程和其他 Snowflake 团队保持一致 将我们的精力集中在最有效的方式上 激发工程中的每个人的主动性  自 Snowflake 成立以来，我们的创始人和领导人一直倡导这些原则。同样重要的是，我们招聘的人都拥护这些原则，这对我们有很大的帮助。从一开始就培养和加强这些原则，当然比事后把它们强加给一个组织，或改良一个以前运作良好但已经恶化的组织要容易。
+这篇文章是对我们运作方式的总结，以及在应用该方法时的经验。
+在我们的使命上保持一致 我们的使命是用 Snowflake 的数据云调动世界的数据。我们可以帮助任何组织通过数据实现更好的业务成果，提供更好的产品和服务。在 Snowflake 相当多的工作是确保所有团队都完全支持这一目标及其影响，包括工程、产品管理以及其他有助于产品开发的团队。这种一致性得到了很大的回报，因为它提供了必要的清晰度，以迅速作出决定，包括影响所有 Snowflake 的决定，而不仅仅是一个团队。
+专注于质量 我们的使命的一个含义是，没有内部 DevOps 团队的公司可以充分利用 Snowflake 的优势，因为我们承担并努力消除了运维所需要的努力和摩擦。同样地，Snowflake 开发适当的机制，以提供良好的性能，而不需要由我们的客户进行调整。我们经常听到我们的客户说，我们最看重的特点之一是「它就是好用」。此外，我们通过创建一个高度集成的产品来消除大量的集成工作，而不是一些需要集成的狭窄范围的产品、适应独立的学习曲线、处理不同的定价模式等等。换句话说：高质量是实现我们使命的核心。偏离这个产品设计的初心，可以在战术上使我们的生活更容易，因为有时我们可以通过提供一个配置选项来解决一个特定的问题，或者一个特定的客户可以从上一代的数据仓库中得到一个他们熟悉的调整参数。然而，这种步骤的总效果会把一个令人愉快的产品变成另一种复杂的技术，需要客户不断地关注，这就违背了我们的使命。
+在所有职能部门之间保持一致 整个 Snowflake 在产品设计方面的完全一致，是我们成功的关键。每个人的支持，包括我们的销售组织，抵制诱惑，在易用性上「做一点」妥协， 有助于集中精力开发技术和启发式方法，进一步提高 Snowflake 的可用性。与 IT 部门的密切合作，使我们能完成复杂的举措，比如在 Snowflake 上运行 Snowflake 的业务。与营销部门保持一致，可以共同关注「自助服务」的技术方面。在我们的使命上的一致，使客户支持很容易要求工程部门提供诊断工具（并获得该工具）。虽然领导者的协调是至关重要的，但关键是团队内部和团队之间的所有级别都要同样地协调。
+这是质量和速度 我们的使命意味着以高速度提供高质量的服务。「高质量」和「高交付速度」似乎是矛盾的，直到人们意识到，质量是我们交付新功能和产品创新的速度的组成部分。糟糕的质量会导致频繁和昂贵的事故。没有对质量的适当关注，速度只是一种幻觉，在下一次回滚时就会结束。同样，从一开始，跨职能部门就对质量的价值保持一致，使我们的工程团队保持正确的注意力。总的来说，发展「质量和速度」的思维方式，对我们建立一个伟大的产品和避免「质量与速度」的陷阱有很大的帮助，这常常困扰着产品开发团队。
+了解你的产品 我一直在谈论的一致性，真正开始于 Snowflake 的 2900 多名员工（截至 2021 年 4 月 30 日）一起倡导我们公司的价值观。我们所有的价值观都很重要。但在这个列表的顶部是「把客户放在第一位」。对我们工程人员来说，除其他意义外，这意味着我们应该对客户如何使用我们的产品有坚实的第一手经验。这也意味着我们应该有详细的产品使用遥测数据，以便将投资引向最有价值的改进。我们坚信并拥有内部证据来证实我们对客户所说的话。最好地利用数据的组织实现更好的决策和结果。</description>
+    </item>
+    
+    <item>
+      <title>深度神经网络编译器调研</title>
+      <link>https://lqhl.github.io/blog/a-survey-on-dnn-compiler/</link>
+      <pubDate>Thu, 10 Jun 2021 19:46:35 +0800</pubDate>
+      
+      <guid>https://lqhl.github.io/blog/a-survey-on-dnn-compiler/</guid>
+      <description>在墨奇科技，我们需要将一些包含深度神经网络（DNN）的 AI 算法移植到边缘端的设备， 这些设备往往使用 ARM 架构的 CPU 和一些特殊的边缘端推理芯片（NPU）。这个时候，我 们可以使用 NPU 产商提供的推理框架（例如瑞芯微的 rknn-toolkit）或 TensorFlow Lite 这样的通用边缘端推理框架。另一个选择是使用深度神经网络编译器，自动化的生 成对模型和硬件最适合的机器代码。我们将这个领域内的一些论文和开源项目进行了梳理。
+为什么需要深度神经网络编译器？ 深度学习在我们的日常生活中无处不在。深度神经网络（DNN）可以识别图像，处理自然语 言，甚至在一些很有挑战性的策略游戏中击败人类。当前的深度学习框架，如 TensorFlow1、MXNet2 和 PyTorch3，支持使用 GPU 加速深度学习模型的训练 和推理，这种支持依赖于由 GPU 产商提供的高度优化的张量算子库（比如 NVIDIA 的 cuDNN）。对于一个张量算子，存在许多逻辑上等效的实现，但由于线程、内存重用、流水 线和其他硬件因素的差异，这些实现在性能上会有很大差距。为了优化张量算子，程序员必 须从这些逻辑等效的实现中选择性能最好的。这些算子级别的优化需要大量的手动调整，非 常的专业和不透明，而且无法轻松地跨硬件设备移植。因此，一个深度学习框架如果想要支 持不同的硬件后端，需要大量的工程工作。即使在当前受支持的硬件上，开发深度学习框架 和模型也受到库中优化算子集合的限制，从而阻止了可能产生不受支持的算子的优化（例如 计算图优化和算子融合）。
+从云服务器到自动驾驶汽车和嵌入式设备，我们需要将包含 DNN 的 AI 应用程序部署到各 种各样不同的设备上。由于硬件的多样性，存在 CPU、GPU、ASIC（如 TPC 和 NPU）、FPGA 等不同类型的硬件，这些硬件的设计目标在内存组织、计算功能单元等方面都有很大的不同 （下图展示了 CPU、GPU 和 TPU 的不同内存组织和计算功能单元），将深度学习模型映射 到这些硬件设备变得很复杂。深度学习框架依靠计算图的中间表示来实现优化，例如自动微 分和动态内存管理。但是，计算图级别的优化通常过于高级，无法处理特定硬件后端的算子 级转换 。
+为了在不同的硬件后端上同时实现计算图级别和算子级别的优化，让深度学习计算被更广泛 的应用，我们需要一套自动化的针对不同硬件后端的深度学习编译技术。
+主要工作 这节我们介绍深度学习编译技术中的一些代表性工作。
+TVM 为了解决上一节所说的种种问题，陈天奇等人提出了 TVM4，第一个端到端的深度学习自 动编译和代码生成方法。TVM 允许将高级框架（如 TensorFlow、MXNet、PyTorch 等）专用 的深度学习网络部署到多种硬件后端上（包括 CPU、GPU 和基于 FPGA 的加速器）。在设计 上，TVM 结合了内存访问、线程模式和新的硬件元语，建立一个足够大的搜索空间，保证可 能的人工工程优化全部包含在这个搜索空间里面。TVM 通过快速的搜索这个搜索空间，生成 可部署代码。其性能可与当前最优的硬件供应商库相比，且可适应新型专用加速器后端。</description>
+    </item>
+    
+    <item>
+      <title>持久内存在图像搜索中的应用</title>
+      <link>https://lqhl.github.io/blog/persistent-memory/</link>
+      <pubDate>Thu, 01 Apr 2021 11:11:34 +0800</pubDate>
+      
+      <guid>https://lqhl.github.io/blog/persistent-memory/</guid>
+      <description>原文发表于墨奇博客：https://blog.moqi.com.cn/persistent-memory/
+ 在墨奇科技，我们用基于向量（vector）和图（graph）的近似搜索算法，构建高精度的大规模图像搜索引擎。目前，在 20 亿级别的指纹图像上，我们可以做到精确搜索的秒级响应。在这个过程中，我们将英特尔 ® 傲腾™持久内存融合到了图像搜索引擎中，使得系统的整体性价比得到了大幅度的提升。这个改进的核心是使用英特尔 ® 傲腾™持久内存的 App Direct 模式代替内存作为向量和图索引结构的缓存，在维持较高性能的同时，大幅度降低了内存开销。下面我们开始介绍整体方案。
+背景 – 墨奇图像搜索系统 下图是墨奇图像搜索系统的架构。在插入一张图片时，我们先将图片存储到分布式文件系统中，然后结合一些计算机视觉算法和深度学习模型对图像进行特征提取，图像的特征一般可以表示为向量或图。对于每张图像，我们首先用深度学习模型得到一个高维的向量表示（vector/embedding）。其次，我们会对图像进行特征点检测，我们将特征点当做点（vertex），在相似的特征点之间连上边（edge），组成一个图（graph）。图中的点和边有时候也会带上更多的信息，如点的属性（如位置、方向和类型）和点周围图像的向量表示。对于库中的所有候选图像，在提取出特征后，我们将特征均匀的分配到图像搜索服务器上，并在内存中建立索引。在搜索时，用户的图片在经过特征提取服务器之后提取出来的特征，会被发送到图像搜索服务器上进行检索。
+我们的图像搜索服务器架构如下图所示。在图像搜索服务器中，我们将特征索引文件缓存在内存之中，搜索分为 GPU 检索和 CPU 检索两个步骤：我们先用 GPU 检索快速的筛选候选图片，然后再用 CPU 进行精确检索。关于在图像搜索中的异构计算（主要是 GPU），我们在《异构计算》中进行了介绍。图像搜索服务器的一个问题在于，为了实现高速的检索，它需要使用大量的内存来缓存特征索引文件，这大大提高了硬件成本。我们曾尝试将部分索引文件放到高性能的 NVMe SSD 上，发现对于性能有较大的损失。
+什么是持久内存？ **持久内存（英语：persistent memory，缩写 PMEM）**是一种新的存储介质，它是一种驻留在内存总线上的字节可寻址（byte-addressable）的高性能非易失存储设备。由于 PMEM 驻留在内存总线上，它可以像 DRAM 一样访问数据，这意味着 PMEM 具有与 DRAM 接近的速度和延迟以及 NAND 闪存的非易失性。下图是 PMEM 和 DRAM 的实物图，可以看到，在外观和接口上，PMEM 与 DRAM 类似。
+由于硬件技术的限制，存储设备商可以制造出容量小访问速度快但单价较贵的存储器（如 CPU Cache 和 DRAM），也可以制造出容量大访问速度慢而廉价的存储器（如硬盘和磁带），但很难制造出访问速度快容量大还很便宜的存储器。因此，现代计算机通常将存储器分成若干级，称为存储器层次结构（如下图），按照离 CPU 由近到远的顺序依次是 CPU 寄存器、CPU Cache、内存（DRAM）、SSD 闪存、硬盘和磁带，越靠近 CPU 的存储器容量越小访问速度越快但越昂贵。
+如下图所示，PMEM 的出现，在存储器层次结构上增添了新的一层。PMEM 兼具 DRAM 和 SSD 的一些优点：</description>
+    </item>
+    
+    <item>
+      <title>新一代的 Serverless Computing - Hydro 项目介绍</title>
+      <link>https://lqhl.github.io/blog/hydro/</link>
+      <pubDate>Wed, 17 Feb 2021 13:03:57 +0800</pubDate>
+      
+      <guid>https://lqhl.github.io/blog/hydro/</guid>
+      <description>Hydro 是 Joseph M. Hellerstein 教授在 UC Berkeley 的 RISELab（算是 AMPLab 的继承者）开展的项目。要了解 Hydro，可以从他们最近的一篇总结性博客开始看起：The State of the Serverless Art，然后再看它主页上罗列的论文。
+背景 - 无服务器计算 Hydro 项目的目标是创造一个适合于云计算的编程环境。目前大部分人是如何做云计算的呢？我们可能会开一定数量的 Amazon EC2 虚拟机，然后在上面安装依赖包，启动我们的程序。在这中间，我们要处理很多机器管理、容错、通讯的问题。在 Joe 教授的眼中，在云上如此编程，类似于在计算机发展的早期时代我们直接写汇编代码，非常的落后。那么在云计算的时代，正确的姿势应该是什么样的呢？UC Berkeley 的一些系统大佬在 2019 年的 Berkeley view1 中指出，云计算的未来是无服务器计算（serverlesss computing）。在无服务器计算中，用户只要定义需要计算的函数，计算所需的资源都有云计算提供商来管理，类似的服务有 Amazon Lamda、Azure Functions 和 Google Cloud Functions。话说，基本同一批的系统界大佬在 2009 年出过一个云计算的 Berkeley view2，其中很多看法都已经被验证；2019 年的这版是他们的一个回顾与更新。
+问题是，现在无服务器计算并不完美，Joe 在一篇论文中指出无服务器计算相比之前的云计算是「进一步，退两步」3：
+ 进步：自动伸缩（autoscaling）。用户不需要关心有多少的虚拟机在进行计算，云计算提供商会自动的扩缩容。 退步：数据访问慢。在现有的无服务器计算中，用户只能访问 Amazon S3 和 DynamoDB 这样的服务，这些存储服务或数据库比本地 SSD 之类的存储介质可慢多了。 退步：无法进行分布式计算。要进行分布式计算，需要进行通信，而基于存储的通信太慢了，现有的无服务器计算框架中又不能直接进行网路通信。  解决之道 - Anna 和 Cloudburst 当然，Joe 的目标并不是贬低无服务器计算，而是希望通过 Hydro 项目构建出一个他理想中的无服务器计算平台：stateful serverless infrastructure。首先，Joe 和他的博士生 Chenggang Wu 构建了名为 Anna 的 key-value 存储系统（Anna 分别获得了 ICDE&#39;18 和 VLDB&#39;19 的最佳论文奖）。下面说一下 Anna 的主要特性：</description>
+    </item>
+    
+    <item>
+      <title>[DRAFT] OSDI 2020 学习笔记</title>
+      <link>https://lqhl.github.io/blog/osdi-2020/</link>
+      <pubDate>Sun, 08 Nov 2020 23:32:00 +0800</pubDate>
+      
+      <guid>https://lqhl.github.io/blog/osdi-2020/</guid>
+      <description>This is a work in progress&amp;hellip;
+ Correctness Theseus: an Experiment in Operating System Structure and State Management 传统的 OS 中不同进程会共享很多状态，这会导致 state spill 的问题，即一个系统服务的崩溃，可能导致整个系统的崩溃，这时候其他不使用这个系统服务的进程的数据也会丢失。作者利用 Rust 语言中 memory ownership model 的特性实现了不同内核模块之间的 isolation 和 zero-cost state transfer，从而增强了系统的 evolvability 和 availability，能够实现比传统 OS 更强的 live evolution (我理解为加强版的的 live update) 和 fault recovery。他们通过一种名为 intralingual 的设计，让 Rust 编译器来保证他们的操作系统（名为 Theseus）实现是正确的。
+RedLeaf: Isolation and Communication in a Safe Operating System 也是一个用 Rust 写的 OS，利用 Rust 的内存安全特性，不依赖硬件而实现了不同模块的隔离。在这个名为 RedLeaf 的 OS 上，作者实现了 10Gbps 网卡和 NVMe SSD 的驱动程序，并达到了和 DPDK/SPDK 相同的性能。说明 Rust 写的 OS 既安全，性能又好。</description>
+    </item>
+    
+    <item>
+      <title>Linux Network Tuning - 10 GE</title>
+      <link>https://lqhl.github.io/blog/linux-network-tuning-10ge/</link>
+      <pubDate>Fri, 14 Sep 2018 20:26:21 +0800</pubDate>
+      
+      <guid>https://lqhl.github.io/blog/linux-network-tuning-10ge/</guid>
+      <description>最近在研究如何为公司搭建 40/100 GE，在购买新设备之前，决定先在现有的 10 GE 网络上做一些 benchmark。 做完才发现现有的网络利用率还有不少的提高空间。
+测试方式 测试机器
+ Server-A：用于运行 NFS 服务器（IP: 10.1.1.1） Client-B: 用于运行 NFS 的客户端  用 iperf 测试网速 在 Server-A 上：
+iperf3 -s -p 12000 -i1 在 Client-B 上：
+iperf3 -c storage0002 -p 12000 -i1 -t 30 用 fio 测试 NFS 的性能 在 Client-B 上 mount NFS（假设 Server-A 在 /srv/nfs 上配置了一个 NFS）：
+sudo mount 10.1.1.1:/srv/nfs /mnt/tmp -v Fio 的测试文件 read.fio:
+[global] bs=2M iodepth=1 direct=1 ioengine=libaio randrepeat=0 group_reporting time_based runtime=60 filesize=2G numjobs=4 [job] rw=read filename=/mnt/tmp/test name=read 运行 fio 测试：</description>
+    </item>
+    
+    <item>
+      <title>如何成为系统管理员（sysadmin）？</title>
+      <link>https://lqhl.github.io/blog/how-to-become-a-sysadmin/</link>
+      <pubDate>Thu, 31 May 2018 20:50:11 +0800</pubDate>
+      
+      <guid>https://lqhl.github.io/blog/how-to-become-a-sysadmin/</guid>
+      <description>Linux 入门学习 实践课程：
+ Teeny Tiny Linux Server Course  参考书：
+ 鳥哥的 Linux 私房菜 — 基礎學習篇 The Linux Command Line by William E. Shotts, Jr.  中文版    寻求帮助：
+ 善用 Google 和 Stackoverflow RTFM: read the fucking manual! Reddit: r/linuxadmin/, r/linux_mentor  Linux 的进阶学习 Reddit 上有一个非常好的 list，列出了成为一名 Linux 系统管理员需要学习的内容，可以作为进阶学习的参考：How did you get your start? : linuxadmin。
+ This is what I tell people to do, who ask me &amp;ldquo;how do I learn to be a Linux sysadmin?</description>
+    </item>
+    
+    <item>
+      <title>链路聚合</title>
+      <link>https://lqhl.github.io/blog/link-aggregation/</link>
+      <pubDate>Tue, 15 May 2018 12:22:34 +0800</pubDate>
+      
+      <guid>https://lqhl.github.io/blog/link-aggregation/</guid>
+      <description>链路聚合（bonding or link aggregation）将多个物理网卡捆绑在一起，形成一个逻辑端口。它可以用于增加链路带宽和提供链路的冗余与容错。 以下是我参考 Ubuntu Bonding 后在 Ubuntu 16.04 上配置的步骤：
+  安装：
+sudo apt-get install ifenslave   载入提供 bonding 的 kernel module：
+sudo modprobe bonding   在电脑启动时自动载入 bonding 模块，将 bonding 加入 /etc/modules：
+# /etc/modules: kernel modules to load at boot time. # # This file contains the names of kernel modules that should be loaded # at boot time, one per line. Lines beginning with &amp;#34;#&amp;#34; are ignored.</description>
+    </item>
+    
+  </channel>
+</rss>

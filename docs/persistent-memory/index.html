@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta http-equiv="X-Clacks-Overhead" content="GNU Terry Pratchett" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>持久内存在图像搜索中的应用 | 巴别之塔</title>
+<meta name="title" content="持久内存在图像搜索中的应用" />
+<meta name="description" content="在墨奇科技，我们用基于向量（vector）和图（graph）的近似搜索算法，构建高精度的大规模图像搜索引擎。目前，在 20 亿级别的指纹图像上，我们可以做到精确搜索的秒级响应。在这个过程中，我们将英特尔 ® 傲腾™持久内存融合到了图像搜索引擎中，使得系统的整体性价比得到了大幅度的提升。这个改进的核心是使用英特尔 ® 傲腾™持久内存的 App Direct 模式代替内存作为向量和图索引结构的缓存，在维持较高性能的同时，大幅度降低了内存开销。" />
+<meta name="keywords" content="PMEM,imagesearch,system," />
+
+
+<meta property="og:title" content="持久内存在图像搜索中的应用" />
+<meta property="og:description" content="在墨奇科技，我们用基于向量（vector）和图（graph）的近似搜索算法，构建高精度的大规模图像搜索引擎。目前，在 20 亿级别的指纹图像上，我们可以做到精确搜索的秒级响应。在这个过程中，我们将英特尔 ® 傲腾™持久内存融合到了图像搜索引擎中，使得系统的整体性价比得到了大幅度的提升。这个改进的核心是使用英特尔 ® 傲腾™持久内存的 App Direct 模式代替内存作为向量和图索引结构的缓存，在维持较高性能的同时，大幅度降低了内存开销。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://lqhl.github.io/persistent-memory/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2021-04-01T11:11:34+08:00" />
+<meta property="article:modified_time" content="2021-04-01T11:11:34+08:00" /><meta property="og:site_name" content="巴别之塔" />
+
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="持久内存在图像搜索中的应用"/>
+<meta name="twitter:description" content="在墨奇科技，我们用基于向量（vector）和图（graph）的近似搜索算法，构建高精度的大规模图像搜索引擎。目前，在 20 亿级别的指纹图像上，我们可以做到精确搜索的秒级响应。在这个过程中，我们将英特尔 ® 傲腾™持久内存融合到了图像搜索引擎中，使得系统的整体性价比得到了大幅度的提升。这个改进的核心是使用英特尔 ® 傲腾™持久内存的 App Direct 模式代替内存作为向量和图索引结构的缓存，在维持较高性能的同时，大幅度降低了内存开销。"/>
+
+
+
+<meta itemprop="name" content="持久内存在图像搜索中的应用">
+<meta itemprop="description" content="在墨奇科技，我们用基于向量（vector）和图（graph）的近似搜索算法，构建高精度的大规模图像搜索引擎。目前，在 20 亿级别的指纹图像上，我们可以做到精确搜索的秒级响应。在这个过程中，我们将英特尔 ® 傲腾™持久内存融合到了图像搜索引擎中，使得系统的整体性价比得到了大幅度的提升。这个改进的核心是使用英特尔 ® 傲腾™持久内存的 App Direct 模式代替内存作为向量和图索引结构的缓存，在维持较高性能的同时，大幅度降低了内存开销。"><meta itemprop="datePublished" content="2021-04-01T11:11:34+08:00" />
+<meta itemprop="dateModified" content="2021-04-01T11:11:34+08:00" />
+<meta itemprop="wordCount" content="533">
+<meta itemprop="keywords" content="PMEM,imagesearch,system," />
+<meta name="referrer" content="no-referrer-when-downgrade" />
+
+  <style>
+  body {
+    font-family: Verdana, sans-serif;
+    margin: auto;
+    padding: 20px;
+    max-width: 720px;
+    text-align: left;
+    background-color: #fff;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+    color: #444;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  strong,
+  b {
+    color: #222;
+  }
+
+  a {
+    color: #3273dc;
+     
+  }
+
+  .title {
+    text-decoration: none;
+    border: 0;
+  }
+
+  .title span {
+    font-weight: 400;
+  }
+
+  nav a {
+    margin-right: 10px;
+  }
+
+  textarea {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  input {
+    font-size: 16px;
+  }
+
+  content {
+    line-height: 1.6;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  code {
+    padding: 2px 5px;
+    background-color: #f2f2f2;
+  }
+
+  pre code {
+    color: #222;
+    display: block;
+    padding: 20px;
+    white-space: pre-wrap;
+    font-size: 14px;
+  }
+
+  blockquote {
+    border-left: 1px solid #999;
+    color: #222;
+    padding-left: 20px;
+    font-style: italic;
+  }
+
+  footer {
+    padding: 25px;
+    text-align: center;
+  }
+
+  .helptext {
+    color: #777;
+    font-size: small;
+  }
+
+  .errorlist {
+    color: #eba613;
+    font-size: small;
+  }
+
+   
+  ul.blog-posts {
+    list-style-type: none;
+    padding: unset;
+  }
+
+  ul.blog-posts li {
+    display: flex;
+  }
+
+  ul.blog-posts li span {
+    flex: 0 0 130px;
+  }
+
+  ul.blog-posts li a:visited {
+    color: #8b6fcb;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    body {
+      background-color: #333;
+      color: #ddd;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    strong,
+    b {
+      color: #eee;
+    }
+
+    a {
+      color: #8cc2dd;
+    }
+
+    code {
+      background-color: #777;
+    }
+
+    pre code {
+      color: #ddd;
+    }
+
+    blockquote {
+      color: #ccc;
+    }
+
+    textarea,
+    input {
+      background-color: #252525;
+      color: #ddd;
+    }
+
+    .helptext {
+      color: #aaa;
+    }
+  }
+
+</style>
+<script>
+  MathJax = {
+    tex: {
+      inlineMath: [["$", "$"]],
+    },
+    displayMath: [
+      ["$$", "$$"],
+      ["\[\[", "\]\]"],
+    ],
+    svg: {
+      fontCache: "global",
+    },
+  };
+</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+></script>
+</head>
+
+<body>
+  <header><a href="/" class="title">
+  <h2>巴别之塔</h2>
+</a>
+<nav><a href="/">Home</a>
+
+
+<a href="/blog">Blog</a>
+
+<a href="/index.xml">RSS</a>
+</nav>
+</header>
+  <main>
+
+<h1>持久内存在图像搜索中的应用</h1>
+<p>
+  <i>
+    <time datetime='2021-04-01' pubdate>
+      01 Apr, 2021
+    </time>
+  </i>
+</p>
+
+<content>
+  <blockquote>
+<p>原文发表于墨奇博客：<a href="https://blog.moqi.com.cn/persistent-memory/">https://blog.moqi.com.cn/persistent-memory/</a></p>
+</blockquote>
+<p>在墨奇科技，我们用基于向量（vector）和图（graph）的近似搜索算法，构建高精度的大规模图像搜索引擎。目前，在 20  亿级别的指纹图像上，我们可以做到精确搜索的秒级响应。在这个过程中，我们将英特尔 ®  傲腾™持久内存融合到了图像搜索引擎中，使得系统的整体性价比得到了大幅度的提升。这个改进的核心是使用英特尔 ® 傲腾™持久内存的 App  Direct 模式代替内存作为向量和图索引结构的缓存，在维持较高性能的同时，大幅度降低了内存开销。下面我们开始介绍整体方案。</p>
+<h2 id="背景--墨奇图像搜索系统">背景 – 墨奇图像搜索系统</h2>
+<p>下图是<strong>墨奇图像搜索系统</strong>的架构。在插入一张图片时，我们先将图片存储到分布式文件系统中，然后结合一些计算机视觉算法和深度学习模型对图像进行特征提取，图像的特征一般可以表示为向量或图。对于每张图像，我们首先用深度学习模型得到一个高维的向量表示（vector/embedding）。其次，我们会对图像进行特征点检测，我们将特征点当做点（vertex），在相似的特征点之间连上边（edge），组成一个图（graph）。图中的点和边有时候也会带上更多的信息，如点的属性（如位置、方向和类型）和点周围图像的向量表示。对于库中的所有候选图像，在提取出特征后，我们将特征均匀的分配到图像搜索服务器上，并在内存中建立索引。在搜索时，用户的图片在经过特征提取服务器之后提取出来的特征，会被发送到图像搜索服务器上进行检索。</p>
+<p><img src="/images/persistent-memory.assets/persistent-memory-1.png" alt="图像搜索系统分布式架构"></p>
+<p>我们的图像搜索服务器架构如下图所示。在图像搜索服务器中，我们将特征索引文件缓存在内存之中，搜索分为 GPU 检索和 CPU  检索两个步骤：我们先用 GPU 检索快速的筛选候选图片，然后再用 CPU 进行精确检索。关于在图像搜索中的异构计算（主要是 GPU），我们在《<a href="https://blog.moqi.com.cn/heterogeneous-computing/">异构计算</a>》中进行了介绍。图像搜索服务器的一个问题在于，为了实现高速的检索，它需要使用大量的内存来缓存特征索引文件，这大大提高了硬件成本。我们曾尝试将部分索引文件放到高性能的 NVMe SSD 上，发现对于性能有较大的损失。</p>
+<p><img src="/images/persistent-memory.assets/persistent-memory-2.png" alt="比对服务器"></p>
+<h2 id="什么是持久内存">什么是持久内存？</h2>
+<p>**持久内存（英语：persistent memory，缩写 PMEM）**是一种新的存储介质，它是一种驻留在内存总线上的字节可寻址（byte-addressable）的高性能非易失存储设备。由于 PMEM 驻留在内存总线上，它可以像 DRAM 一样访问数据，这意味着 PMEM 具有与 DRAM 接近的速度和延迟以及 NAND  闪存的非易失性。下图是 PMEM 和 DRAM 的实物图，可以看到，在外观和接口上，PMEM 与 DRAM 类似。</p>
+<p><img src="/images/persistent-memory.assets/persistent-memory-3.png" alt="PMEM 与 DRAM"></p>
+<p>由于硬件技术的限制，存储设备商可以制造出容量小访问速度快但单价较贵的存储器（如 CPU Cache 和  DRAM），也可以制造出容量大访问速度慢而廉价的存储器（如硬盘和磁带），但很难制造出访问速度快容量大还很便宜的存储器。因此，现代计算机通常将存储器分成若干级，称为存储器层次结构（如下图），按照离 CPU 由近到远的顺序依次是 CPU 寄存器、CPU Cache、内存（DRAM）、SSD 闪存、硬盘和磁带，越靠近 CPU  的存储器容量越小访问速度越快但越昂贵。</p>
+<p><img src="/images/persistent-memory.assets/persistent-memory-4.png" alt="存储器层次结构"></p>
+<p>如下图所示，PMEM 的出现，在存储器层次结构上增添了新的一层。PMEM 兼具 DRAM 和 SSD 的一些优点：</p>
+<ul>
+<li>PMEM 的容量通常远远大于 DRAM，而且也更廉价。</li>
+<li>类似 SSD，PMEM 提供非易失性（non-volatile）存储，可以在不通电的情况下保证数据不受损。</li>
+<li>类似 DRAM，PMEM 支持字节可寻址（byte-addressable），这意味着 CPU 指令可以直接存取 PMEM 上的数据，而不需要通过  I/O 总线上的 PCIe 接口。相比于对于 SDD 和硬盘的 I/O 操作，对于 PMEM  的访问节省一次驱动到操作系统的上下文切换（context switch），并且不存在由于块访问（block  access）导致的读写放大问题，提升了 I/O 操作的效率。</li>
+</ul>
+<p><img src="/images/persistent-memory.assets/persistent-memory-5.png" alt="存储器层次结构 - PMEM"></p>
+<h2 id="持久内存上的使用">持久内存上的使用</h2>
+<p>目前市场上较为成熟的 PMEM 产品只有英特尔 ® 傲腾™持久内存。这节我们介绍傲腾持久内存的三种运行模式：内存模式（Memory  Mode）、App Direct 模式和混合模式（Dual  Mode）。通过利用这几种运行模式，用户可以灵活地利用傲腾持久内存支持不同的工作负载。</p>
+<h3 id="内存模式">内存模式</h3>
+<p>在内存模式下，PMEM 的使用与 DRAM 非常相似。不需要特定的软件或更改应用程序，PMEM 会模仿 DRAM，使数据保持  “易失性”。PMEM 使用易失性密钥加密数据，而秘钥在每个电源循环后都会清除，这样在断电重启后，PMEM 上的数据就像 DRAM 一样丢失了。  在内存模式下，PMEM 作为 DRAM 的扩展，并由主机内存控制器进行管理。 PMEM 与 DRAM  没有固定的比率，其混合取决于应用程序的需求。 就延迟特性而言，任何击中 DRAM 缓存的数据会提供小于 100 纳秒的延迟。  任何高速缓存未命中都会流向 PMEM，这将在亚微秒范围内提供延迟。</p>
+<p><img src="/images/persistent-memory.assets/persistent-memory-6.png" alt="Memory Mode"></p>
+<p>除了不能利用 PMEM 的非易失性，我们在将图像搜索服务器运行在 PMEM  的内存模式上时，遇到的另一个问题是程序的性能难以预料。原因是内存模式使用 DRAM 进行缓存，如果缓存命中，那么访问 DRAM 的延迟在 14  ns 左右，但如果缓存失效，访问 PMEM 的延迟在 350ns 左右，这个性能差了 20  多倍。由于缓存的算法是由操作系统控制的，不受应用程序的控制，应用程序的性能会由于当前服务器上的工作负载，产生很大的性能波动。</p>
+<h3 id="app-direct-模式">App Direct 模式</h3>
+<p>在 App Direct 模式下，应程序可以独立的使用 DRAM 和 PMEM 资源，更加灵活。应用程序中需要较快访问的数据存在 DRAM 中，而其余的数据则可以放在容量更大的 PMEM 上。 在 App Direct 模式下，PMEM  中的数据在断电后保持不变，这可以大幅度地减少重新启动后应用程序的加载时间（比如一个图像搜索引擎启动时要将索引文件加载到内存中）。此外，在 App Direct 模式下，PMEM 仍然像内存一样可以通过字节访问（byte-addressable），这避免了使用其它存储介质（如 NVMe  SSD）时的读写放大问题。</p>
+<p><img src="/images/persistent-memory.assets/persistent-memory-7.png" alt="App Direct Mode"></p>
+<p>但是，App Direct 模式要求我们对应用程序进行一些修改，以利用 PMEM 的这些良好特性。一个办法是使用英特尔推出的 <a href="https://pmem.io/pmdk/">Persistent Memory Development Kit</a> (PMDK)。PMDK 包含了一系列旨在方便 PMEM 应用开发的函数库和工具。另一个方法是直接在 PMEM 上创建支持 <a href="https://pmem.io/ndctl/ndctl-create-namespace.html">devdax</a> 的文件系统（如 XFS），然后利用 Linux 的内存映射文件 <code>mmap</code> 来直接读写 PMEM 上的数据。</p>
+<h3 id="混合模式">混合模式</h3>
+<p>在混合模式下，我们可以将部分 PMEM 配置成内存模式，部分 PMEM 配置成 App Direct 模式，兼具两种模式的优点。</p>
+<h2 id="基于-pmem-改写图像搜索服务器">基于 PMEM 改写图像搜索服务器</h2>
+<p>回顾第一节的介绍，我们的图像搜索算法分成 GPU 检索和 CPU 检索两个阶段。结合 profiling 的结果，我们利用高性能计算分析模型 <a href="https://en.wikipedia.org/wiki/Roofline_model">Roofline model</a> 得到了如下结论：</p>
+<ul>
+<li>GPU 检索接近于 memory-bound，主要瓶颈在于内存与 GPU 之间传输数据的带宽。同时，由于 GPU 的索引文件体积较小，因此我们将 GPU 的索引文件通过 pinned memory 的方式放置在主机的 DRAM 上。</li>
+<li>CPU 检索接近于 compute-bound，瓶颈主要在 CPU 的算力。同时，由于 CPU 的索引文件体积较大，我们选择将 CPU 的索引文件放在 PMEM 上。</li>
+</ul>
+<p><img src="/images/persistent-memory.assets/persistent-memory-8.png" alt="比对服务器 - PMEM"></p>
+<p>最后，介绍一些在持久内存上编程需要注意的事项：</p>
+<ul>
+<li>数据持久化：数据写入 PMEM 后，需要 flush 才会被持久化。例如：
+<ul>
+<li>使用 <code>mmap</code> 中的 <code>msync()</code> 和 <a href="https://pmem.io/pmdk/">PMDK</a> 中的 <code>pmem_persist()</code>；</li>
+<li>如果写汇编则可以用 <code>sfence</code>、<code>clwb</code></li>
+</ul>
+</li>
+<li>数据一致性：与 SSD 和硬盘不同，PMEM 写操作保证原子性的单位是 8 byte，在使用一些之前用在 disk 上的数据结构时需要注意。</li>
+<li>内存泄漏：由于 PMEM 上的数据是持久的，重启进程或者服务器之后，PMEM 中内存泄漏都仍然存在，除非我们主动丢弃 PMEM 中的数据。因此要注意在 PMEM 编程中的内存泄漏问题。</li>
+<li>字节可寻址（byte-addressable）：PMEM 的读写操作不需要像 SSD 和硬盘那样对齐到 4KB/8KB 的空间上，减少了读写放大。</li>
+<li>错误处理：需要额外处理 PMEM 引发的硬件错误。</li>
+</ul>
+<h2 id="实践与测试结果"><strong>实践与测试结果</strong></h2>
+<p>这节中，我们介绍如何配置一台带有 PMEM 的服务器，以及我们改进后的图像搜索服务器的性能。</p>
+<p>下面是我们服务器的硬件配置：</p>
+<table>
+<thead>
+<tr>
+<th>组件</th>
+<th>配置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CPU</td>
+<td>2 x Intel(R) Xeon(R) Gold 6240 CPU @ 2.60GHz</td>
+</tr>
+<tr>
+<td>DRAM</td>
+<td>384 GB (12 x 32 GB Samsung DDR4 @ 2666 MT/s)</td>
+</tr>
+<tr>
+<td>PMEM</td>
+<td>1.5 TB (12 x 128 GB Intel® Optane™ Persistent Memory)</td>
+</tr>
+<tr>
+<td>GPU</td>
+<td>2 x NVIDIA 1080 ti</td>
+</tr>
+<tr>
+<td>NVMe SSD</td>
+<td>4 x Intel® DC SSD P3700</td>
+</tr>
+<tr>
+<td>Platform</td>
+<td>Supermicro<a href="https://www.supermicro.org.cn/en/products/system/4U/4029/SYS-4029GP-TRT.cfm"> SYS-4029GP-TRT</a></td>
+</tr>
+</tbody>
+</table>
+<p>操作系统的配置：</p>
+<ul>
+<li>Ubuntu 16.04</li>
+<li>Linux Kernel 4.4.0-141
+<ul>
+<li>kernel module: nvdimm driver / Direct access (DAX) support / Block translation table (BTT)</li>
+<li>注：由于 Linux 对 PMEM 的支持还不太稳定，不同的 kernel 版本对性能影响较大</li>
+</ul>
+</li>
+</ul>
+<p>需要安装的 PMEM 管理工具：</p>
+<ul>
+<li>ndctl: <a href="https://github.com/pmem/ndctl">https://github.com/pmem/ndctl</a></li>
+<li>ipmctl: <a href="https://github.com/intel/ipmctl">https://github.com/intel/ipmctl</a></li>
+</ul>
+<p>现在，我们可以开始配置 PMEM 了：</p>
+<ol>
+<li>
+<p>创建一个配置（称作 memory allocation goal），将所有的 PMEM 分配到 App Direct 模式：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ ipmctl create -goal
+</code></pre></div></li>
+<li>
+<p>重启服务器，确认分配信息：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ ipmctl show -memoryresources
+<span style="color:#008080">Capacity</span><span style="color:#000;font-weight:bold">=</span>5900.5 GiB
+<span style="color:#008080">MemoryCapacity</span><span style="color:#000;font-weight:bold">=</span>0.0 GiB
+<span style="color:#008080">AppDirectCapacity</span><span style="color:#000;font-weight:bold">=</span>5892.0 GiB
+<span style="color:#008080">UnconfiguredCapacity</span><span style="color:#000;font-weight:bold">=</span>0.0 GiB
+<span style="color:#008080">InaccessibleCapacity</span><span style="color:#000;font-weight:bold">=</span>8.2 GiB
+<span style="color:#008080">ReservedCapacity</span><span style="color:#000;font-weight:bold">=</span>0.3 GiB
+</code></pre></div><p>可以看到，一共 6 TB 的 PMEM 都被分配成了 App Direct 模式。</p>
+</li>
+<li>
+<p>创建一个 namespace：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ ndctl create-namespace
+</code></pre></div></li>
+<li>
+<p>查看代表 PMEM 的块设备，可以看到 PMEM 被分成了 2 个块设备：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ lsblk
+NAME MAJ:MIN RM SIZE RO TYPE MOUNTPOINT
+pmem0 259:0 <span style="color:#099">0</span> 2.9T <span style="color:#099">0</span> disk 
+pmem13 259:1 <span style="color:#099">0</span> 2.9T <span style="color:#099">0</span> disk 
+</code></pre></div></li>
+<li>
+<p>用 XFS 格式化 PMEM 的块设备：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ mkfs.xfs /dev/pmem0
+$ mkfs.xfs /dev/pmem13
+</code></pre></div></li>
+<li>
+<p>挂载 PMEM 上的文件系统：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ mount -o dax /dev/pmem0 /mnt/pmem0
+$ mount -o dax /dev/pmem13 /mnt/pmem1
+</code></pre></div></li>
+</ol>
+<p>完成这些操作后，<code>/mnt/pmem{0,1}</code> 目录就可以作为持久化的存储来使用。我们一般会在这个目录下创建索引文件，使用 <code>mmap</code> 访问。</p>
+<p>我们在这个平台上测试了我们的图像搜索服务器性能。其中，GPU 的索引文件总是放在 DRAM 中，然后我们测试了将 CPU 索引文件放在 DRAM、PMEM 和 NVMe SSD  中这三种情况。下图中展示了三种情况下的数据库容量、搜索吞吐量和搜索延迟，所有数据都按照 DRAM  的性能进行了正则化（normalize）。从图中可以发现：</p>
+<ol>
+<li>由于 DRAM、PMEM、NVMe SSD 的容量依次递增，使用 PMEM 和 NVMe SSD 相比只使用 DRAM 可以容纳更多的数据，也就是说性价比更高。</li>
+<li>在搜索的吞吐量和延迟两项指标上，PMEM 只比 DRAM 差了 10% 左右，而 NVMe SSD 的搜索性能相差较远。这说明 PMEM 带来更高性价比的同时，性能损耗比 NVMe 小的多。</li>
+</ol>
+<p><img src="/images/persistent-memory.assets/persistent-memory-9.png" alt="实验"></p>
+<h2 id="总结">总结</h2>
+<p>持久内存（PMEM）的出现，为 AI 算法和系统的设计带来了新的机遇和挑战。PMEM 作为存储层次中新的一层，有一些独特的优势：</p>
+<ul>
+<li>相比于上一层的 DRAM，PMEM 可以降低图像搜索系统的硬件成本，同时提高系统的可靠性。</li>
+<li>相比于下一层的 NVMe SSD，PMEM 可以提高图像搜索系统的吞吐量，并降低搜索的时延、提高用户体验。</li>
+</ul>
+
+</content>
+<p>
+  
+  <a href="https://lqhl.github.io/blog/pmem/">#PMEM</a>
+  
+  <a href="https://lqhl.github.io/blog/imagesearch/">#imagesearch</a>
+  
+  <a href="https://lqhl.github.io/blog/system/">#system</a>
+  
+</p>
+
+  </main>
+  <footer>Made with <a href="https://github.com/janraasch/hugo-bearblog/">Hugo ʕ•ᴥ•ʔ Bear</a>
+</footer>
+
+    
+</body>
+
+</html>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>serverless on 巴别之塔</title>
+    <link>https://lqhl.github.io/blog/serverless/</link>
+    <description>Recent content in serverless on 巴别之塔</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <copyright>Copyright © 2021, lqhl.</copyright>
+    <lastBuildDate>Wed, 17 Feb 2021 13:03:57 +0800</lastBuildDate><atom:link href="https://lqhl.github.io/blog/serverless/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>新一代的 Serverless Computing - Hydro 项目介绍</title>
+      <link>https://lqhl.github.io/hydro/</link>
+      <pubDate>Wed, 17 Feb 2021 13:03:57 +0800</pubDate>
+      
+      <guid>https://lqhl.github.io/hydro/</guid>
+      <description>Hydro 是 Joseph M. Hellerstein 教授在 UC Berkeley 的 RISELab（算是 AMPLab 的继承者）开展的项目。要了解 Hydro，可以从他们最近的一篇总结性博客开始看起：The State of the Serverless Art，然后再看它主页上罗列的论文。
+背景 - 无服务器计算 Hydro 项目的目标是创造一个适合于云计算的编程环境。目前大部分人是如何做云计算的呢？我们可能会开一定数量的 Amazon EC2 虚拟机，然后在上面安装依赖包，启动我们的程序。在这中间，我们要处理很多机器管理、容错、通讯的问题。在 Joe 教授的眼中，在云上如此编程，类似于在计算机发展的早期时代我们直接写汇编代码，非常的落后。那么在云计算的时代，正确的姿势应该是什么样的呢？UC Berkeley 的一些系统大佬在 2019 年的 Berkeley view1 中指出，云计算的未来是无服务器计算（serverlesss computing）。在无服务器计算中，用户只要定义需要计算的函数，计算所需的资源都有云计算提供商来管理，类似的服务有 Amazon Lamda、Azure Functions 和 Google Cloud Functions。话说，基本同一批的系统界大佬在 2009 年出过一个云计算的 Berkeley view2，其中很多看法都已经被验证；2019 年的这版是他们的一个回顾与更新。
+问题是，现在无服务器计算并不完美，Joe 在一篇论文中指出无服务器计算相比之前的云计算是「进一步，退两步」3：
+ 进步：自动伸缩（autoscaling）。用户不需要关心有多少的虚拟机在进行计算，云计算提供商会自动的扩缩容。 退步：数据访问慢。在现有的无服务器计算中，用户只能访问 Amazon S3 和 DynamoDB 这样的服务，这些存储服务或数据库比本地 SSD 之类的存储介质可慢多了。 退步：无法进行分布式计算。要进行分布式计算，需要进行通信，而基于存储的通信太慢了，现有的无服务器计算框架中又不能直接进行网路通信。  解决之道 - Anna 和 Cloudburst 当然，Joe 的目标并不是贬低无服务器计算，而是希望通过 Hydro 项目构建出一个他理想中的无服务器计算平台：stateful serverless infrastructure。首先，Joe 和他的博士生 Chenggang Wu 构建了名为 Anna 的 key-value 存储系统（Anna 分别获得了 ICDE&#39;18 和 VLDB&#39;19 的最佳论文奖）。下面说一下 Anna 的主要特性：</description>
+    </item>
+    
+  </channel>
+</rss>

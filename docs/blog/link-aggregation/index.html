@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta http-equiv="X-Clacks-Overhead" content="GNU Terry Pratchett" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>链路聚合 | 巴别之塔</title>
+<meta name="title" content="链路聚合" />
+<meta name="description" content="链路聚合（bonding or link aggregation）将多个物理网卡捆绑在一起，形成一个逻辑端口。它可以用于增加链路带宽和提供链路的冗余与容错。 以下是我参考 Ubuntu Bonding 后在 Ubuntu 16.04 上配置的步骤：
+  安装：
+sudo apt-get install ifenslave   载入提供 bonding 的 kernel module：
+sudo modprobe bonding   在电脑启动时自动载入 bonding 模块，将 bonding 加入 /etc/modules：
+# /etc/modules: kernel modules to load at boot time. # # This file contains the names of kernel modules that should be loaded # at boot time, one per line. Lines beginning with &#34;#&#34; are ignored." />
+<meta name="keywords" content="linux,networking," />
+
+
+<meta property="og:title" content="链路聚合" />
+<meta property="og:description" content="链路聚合（bonding or link aggregation）将多个物理网卡捆绑在一起，形成一个逻辑端口。它可以用于增加链路带宽和提供链路的冗余与容错。 以下是我参考 Ubuntu Bonding 后在 Ubuntu 16.04 上配置的步骤：
+  安装：
+sudo apt-get install ifenslave   载入提供 bonding 的 kernel module：
+sudo modprobe bonding   在电脑启动时自动载入 bonding 模块，将 bonding 加入 /etc/modules：
+# /etc/modules: kernel modules to load at boot time. # # This file contains the names of kernel modules that should be loaded # at boot time, one per line. Lines beginning with &#34;#&#34; are ignored." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://lqhl.github.io/blog/link-aggregation/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2018-05-15T12:22:34+08:00" />
+<meta property="article:modified_time" content="2018-05-15T12:22:34+08:00" /><meta property="og:site_name" content="巴别之塔" />
+
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="链路聚合"/>
+<meta name="twitter:description" content="链路聚合（bonding or link aggregation）将多个物理网卡捆绑在一起，形成一个逻辑端口。它可以用于增加链路带宽和提供链路的冗余与容错。 以下是我参考 Ubuntu Bonding 后在 Ubuntu 16.04 上配置的步骤：
+  安装：
+sudo apt-get install ifenslave   载入提供 bonding 的 kernel module：
+sudo modprobe bonding   在电脑启动时自动载入 bonding 模块，将 bonding 加入 /etc/modules：
+# /etc/modules: kernel modules to load at boot time. # # This file contains the names of kernel modules that should be loaded # at boot time, one per line. Lines beginning with &#34;#&#34; are ignored."/>
+
+
+
+<meta itemprop="name" content="链路聚合">
+<meta itemprop="description" content="链路聚合（bonding or link aggregation）将多个物理网卡捆绑在一起，形成一个逻辑端口。它可以用于增加链路带宽和提供链路的冗余与容错。 以下是我参考 Ubuntu Bonding 后在 Ubuntu 16.04 上配置的步骤：
+  安装：
+sudo apt-get install ifenslave   载入提供 bonding 的 kernel module：
+sudo modprobe bonding   在电脑启动时自动载入 bonding 模块，将 bonding 加入 /etc/modules：
+# /etc/modules: kernel modules to load at boot time. # # This file contains the names of kernel modules that should be loaded # at boot time, one per line. Lines beginning with &#34;#&#34; are ignored."><meta itemprop="datePublished" content="2018-05-15T12:22:34+08:00" />
+<meta itemprop="dateModified" content="2018-05-15T12:22:34+08:00" />
+<meta itemprop="wordCount" content="191">
+<meta itemprop="keywords" content="linux,networking," />
+<meta name="referrer" content="no-referrer-when-downgrade" />
+
+  <style>
+  body {
+    font-family: Verdana, sans-serif;
+    margin: auto;
+    padding: 20px;
+    max-width: 720px;
+    text-align: left;
+    background-color: #fff;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+    color: #444;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  strong,
+  b {
+    color: #222;
+  }
+
+  a {
+    color: #3273dc;
+     
+  }
+
+  .title {
+    text-decoration: none;
+    border: 0;
+  }
+
+  .title span {
+    font-weight: 400;
+  }
+
+  nav a {
+    margin-right: 10px;
+  }
+
+  textarea {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  input {
+    font-size: 16px;
+  }
+
+  content {
+    line-height: 1.6;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  code {
+    padding: 2px 5px;
+    background-color: #f2f2f2;
+  }
+
+  pre code {
+    color: #222;
+    display: block;
+    padding: 20px;
+    white-space: pre-wrap;
+    font-size: 14px;
+  }
+
+  blockquote {
+    border-left: 1px solid #999;
+    color: #222;
+    padding-left: 20px;
+    font-style: italic;
+  }
+
+  footer {
+    padding: 25px;
+    text-align: center;
+  }
+
+  .helptext {
+    color: #777;
+    font-size: small;
+  }
+
+  .errorlist {
+    color: #eba613;
+    font-size: small;
+  }
+
+   
+  ul.blog-posts {
+    list-style-type: none;
+    padding: unset;
+  }
+
+  ul.blog-posts li {
+    display: flex;
+  }
+
+  ul.blog-posts li span {
+    flex: 0 0 130px;
+  }
+
+  ul.blog-posts li a:visited {
+    color: #8b6fcb;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    body {
+      background-color: #333;
+      color: #ddd;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    strong,
+    b {
+      color: #eee;
+    }
+
+    a {
+      color: #8cc2dd;
+    }
+
+    code {
+      background-color: #777;
+    }
+
+    pre code {
+      color: #ddd;
+    }
+
+    blockquote {
+      color: #ccc;
+    }
+
+    textarea,
+    input {
+      background-color: #252525;
+      color: #ddd;
+    }
+
+    .helptext {
+      color: #aaa;
+    }
+  }
+
+</style>
+<script>
+  MathJax = {
+    tex: {
+      inlineMath: [["$", "$"]],
+    },
+    displayMath: [
+      ["$$", "$$"],
+      ["\[\[", "\]\]"],
+    ],
+    svg: {
+      fontCache: "global",
+    },
+  };
+</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+></script>
+</head>
+
+<body>
+  <header><a href="/" class="title">
+  <h2>巴别之塔</h2>
+</a>
+<nav><a href="/">Home</a>
+
+
+<a href="/blog">Blog</a>
+
+<a href="/index.xml">RSS</a>
+</nav>
+</header>
+  <main>
+
+<h1>链路聚合</h1>
+<p>
+  <i>
+    <time datetime='2018-05-15' pubdate>
+      15 May, 2018
+    </time>
+  </i>
+</p>
+
+<content>
+  <p>链路聚合（bonding or link aggregation）将多个物理网卡捆绑在一起，形成一个逻辑端口。它可以用于增加链路带宽和提供链路的冗余与容错。
+以下是我参考 <a href="https://help.ubuntu.com/community/UbuntuBonding">Ubuntu Bonding</a> 后在 Ubuntu 16.04 上配置的步骤：</p>
+<ol>
+<li>
+<p>安装：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo apt-get install ifenslave
+</code></pre></div></li>
+<li>
+<p>载入提供 bonding 的 kernel module：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo modprobe bonding
+</code></pre></div></li>
+<li>
+<p>在电脑启动时自动载入 <code>bonding</code> 模块，将 <code>bonding</code> 加入 <code>/etc/modules</code>：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#998;font-style:italic"># /etc/modules: kernel modules to load at boot time.</span>
+<span style="color:#998;font-style:italic">#</span>
+<span style="color:#998;font-style:italic"># This file contains the names of kernel modules that should be loaded</span>
+<span style="color:#998;font-style:italic"># at boot time, one per line. Lines beginning with &#34;#&#34; are ignored.</span>
+
+<span style="color:#008080">bonding</span>
+</code></pre></div></li>
+<li>
+<p>配置 <code>/etc/network/interfaces</code>：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#998;font-style:italic"># This file describes the network interfaces available on your system</span>
+<span style="color:#998;font-style:italic"># and how to activate them. For more information, see interfaces(5).</span>
+
+<span style="color:#0086b3">source</span> /etc/network/interfaces.d/*
+
+<span style="color:#998;font-style:italic"># The loopback network interface</span>
+auto lo
+iface lo inet loopback
+
+auto ens6f0
+iface ens6f0 inet manual
+    bond-master bond0
+
+auto ens6f1
+iface ens6f1 inet manual
+    bond-master bond0
+
+auto bond0
+iface bond0 inet static
+    address 192.168.10.100
+    netmask 255.255.255.0
+    bond-mode <span style="color:#099">6</span>
+    bond-miimon <span style="color:#099">100</span>
+    bond-slaves ens6f0 ens6f1
+</code></pre></div></li>
+<li>
+<p>bond-mode 有多重选择，参考 <a href="https://help.ubuntu.com/community/UbuntuBonding">Ubuntu Bonding</a></p>
+</li>
+<li>
+<p>重启网络服务：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo service networking restart
+</code></pre></div></li>
+</ol>
+<h2 id="faq">FAQ</h2>
+<p>Q1. 错误信息：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">RTNETLINK answers: File exists
+Failed to bring up XXX
+</code></pre></div><p>A1. 解决方案：</p>
+<ol>
+<li>
+<p>确认 <code>/etc/network/interfaces</code> 中的 gateway 只设置了一次；</p>
+</li>
+<li>
+<p>执行：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo ip addr flush dev XXX
+</code></pre></div></li>
+</ol>
+<p>Q2. 在 Ubuntu Desktop 下，通过 <code>/etc/network/interfaces</code> 配置网络会与 GUI 下的 NetworkManager 服务冲突，我们需要关闭并禁用这个服务：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo systemctl stop NetworkManager.service
+sudo systemctl disable NetworkManager.service
+</code></pre></div>
+</content>
+<p>
+  
+  <a href="https://lqhl.github.io/tags/linux/">#linux</a>
+  
+  <a href="https://lqhl.github.io/tags/networking/">#networking</a>
+  
+</p>
+
+  </main>
+  <footer>Made with <a href="https://github.com/janraasch/hugo-bearblog/">Hugo ʕ•ᴥ•ʔ Bear</a>
+</footer>
+
+    
+</body>
+
+</html>

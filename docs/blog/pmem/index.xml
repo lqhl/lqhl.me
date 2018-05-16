@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>PMEM on 巴别之塔</title>
+    <link>https://lqhl.github.io/blog/pmem/</link>
+    <description>Recent content in PMEM on 巴别之塔</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <copyright>Copyright © 2021, lqhl.</copyright>
+    <lastBuildDate>Thu, 01 Apr 2021 11:11:34 +0800</lastBuildDate><atom:link href="https://lqhl.github.io/blog/pmem/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>持久内存在图像搜索中的应用</title>
+      <link>https://lqhl.github.io/persistent-memory/</link>
+      <pubDate>Thu, 01 Apr 2021 11:11:34 +0800</pubDate>
+      
+      <guid>https://lqhl.github.io/persistent-memory/</guid>
+      <description>原文发表于墨奇博客：https://blog.moqi.com.cn/persistent-memory/
+ 在墨奇科技，我们用基于向量（vector）和图（graph）的近似搜索算法，构建高精度的大规模图像搜索引擎。目前，在 20 亿级别的指纹图像上，我们可以做到精确搜索的秒级响应。在这个过程中，我们将英特尔 ® 傲腾™持久内存融合到了图像搜索引擎中，使得系统的整体性价比得到了大幅度的提升。这个改进的核心是使用英特尔 ® 傲腾™持久内存的 App Direct 模式代替内存作为向量和图索引结构的缓存，在维持较高性能的同时，大幅度降低了内存开销。下面我们开始介绍整体方案。
+背景 – 墨奇图像搜索系统 下图是墨奇图像搜索系统的架构。在插入一张图片时，我们先将图片存储到分布式文件系统中，然后结合一些计算机视觉算法和深度学习模型对图像进行特征提取，图像的特征一般可以表示为向量或图。对于每张图像，我们首先用深度学习模型得到一个高维的向量表示（vector/embedding）。其次，我们会对图像进行特征点检测，我们将特征点当做点（vertex），在相似的特征点之间连上边（edge），组成一个图（graph）。图中的点和边有时候也会带上更多的信息，如点的属性（如位置、方向和类型）和点周围图像的向量表示。对于库中的所有候选图像，在提取出特征后，我们将特征均匀的分配到图像搜索服务器上，并在内存中建立索引。在搜索时，用户的图片在经过特征提取服务器之后提取出来的特征，会被发送到图像搜索服务器上进行检索。
+我们的图像搜索服务器架构如下图所示。在图像搜索服务器中，我们将特征索引文件缓存在内存之中，搜索分为 GPU 检索和 CPU 检索两个步骤：我们先用 GPU 检索快速的筛选候选图片，然后再用 CPU 进行精确检索。关于在图像搜索中的异构计算（主要是 GPU），我们在《异构计算》中进行了介绍。图像搜索服务器的一个问题在于，为了实现高速的检索，它需要使用大量的内存来缓存特征索引文件，这大大提高了硬件成本。我们曾尝试将部分索引文件放到高性能的 NVMe SSD 上，发现对于性能有较大的损失。
+什么是持久内存？ **持久内存（英语：persistent memory，缩写 PMEM）**是一种新的存储介质，它是一种驻留在内存总线上的字节可寻址（byte-addressable）的高性能非易失存储设备。由于 PMEM 驻留在内存总线上，它可以像 DRAM 一样访问数据，这意味着 PMEM 具有与 DRAM 接近的速度和延迟以及 NAND 闪存的非易失性。下图是 PMEM 和 DRAM 的实物图，可以看到，在外观和接口上，PMEM 与 DRAM 类似。
+由于硬件技术的限制，存储设备商可以制造出容量小访问速度快但单价较贵的存储器（如 CPU Cache 和 DRAM），也可以制造出容量大访问速度慢而廉价的存储器（如硬盘和磁带），但很难制造出访问速度快容量大还很便宜的存储器。因此，现代计算机通常将存储器分成若干级，称为存储器层次结构（如下图），按照离 CPU 由近到远的顺序依次是 CPU 寄存器、CPU Cache、内存（DRAM）、SSD 闪存、硬盘和磁带，越靠近 CPU 的存储器容量越小访问速度越快但越昂贵。
+如下图所示，PMEM 的出现，在存储器层次结构上增添了新的一层。PMEM 兼具 DRAM 和 SSD 的一些优点：</description>
+    </item>
+    
+  </channel>
+</rss>

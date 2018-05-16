@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>deeplearning on 巴别之塔</title>
+    <link>https://lqhl.github.io/blog/deeplearning/</link>
+    <description>Recent content in deeplearning on 巴别之塔</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <copyright>Copyright © 2021, lqhl.</copyright>
+    <lastBuildDate>Thu, 10 Jun 2021 19:46:35 +0800</lastBuildDate><atom:link href="https://lqhl.github.io/blog/deeplearning/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>深度神经网络编译器调研</title>
+      <link>https://lqhl.github.io/a-survey-on-dnn-compiler/</link>
+      <pubDate>Thu, 10 Jun 2021 19:46:35 +0800</pubDate>
+      
+      <guid>https://lqhl.github.io/a-survey-on-dnn-compiler/</guid>
+      <description>在墨奇科技，我们需要将一些包含深度神经网络（DNN）的 AI 算法移植到边缘端的设备， 这些设备往往使用 ARM 架构的 CPU 和一些特殊的边缘端推理芯片（NPU）。这个时候，我 们可以使用 NPU 产商提供的推理框架（例如瑞芯微的 rknn-toolkit）或 TensorFlow Lite 这样的通用边缘端推理框架。另一个选择是使用深度神经网络编译器，自动化的生 成对模型和硬件最适合的机器代码。我们将这个领域内的一些论文和开源项目进行了梳理。
+为什么需要深度神经网络编译器？ 深度学习在我们的日常生活中无处不在。深度神经网络（DNN）可以识别图像，处理自然语 言，甚至在一些很有挑战性的策略游戏中击败人类。当前的深度学习框架，如 TensorFlow1、MXNet2 和 PyTorch3，支持使用 GPU 加速深度学习模型的训练 和推理，这种支持依赖于由 GPU 产商提供的高度优化的张量算子库（比如 NVIDIA 的 cuDNN）。对于一个张量算子，存在许多逻辑上等效的实现，但由于线程、内存重用、流水 线和其他硬件因素的差异，这些实现在性能上会有很大差距。为了优化张量算子，程序员必 须从这些逻辑等效的实现中选择性能最好的。这些算子级别的优化需要大量的手动调整，非 常的专业和不透明，而且无法轻松地跨硬件设备移植。因此，一个深度学习框架如果想要支 持不同的硬件后端，需要大量的工程工作。即使在当前受支持的硬件上，开发深度学习框架 和模型也受到库中优化算子集合的限制，从而阻止了可能产生不受支持的算子的优化（例如 计算图优化和算子融合）。
+从云服务器到自动驾驶汽车和嵌入式设备，我们需要将包含 DNN 的 AI 应用程序部署到各 种各样不同的设备上。由于硬件的多样性，存在 CPU、GPU、ASIC（如 TPC 和 NPU）、FPGA 等不同类型的硬件，这些硬件的设计目标在内存组织、计算功能单元等方面都有很大的不同 （下图展示了 CPU、GPU 和 TPU 的不同内存组织和计算功能单元），将深度学习模型映射 到这些硬件设备变得很复杂。深度学习框架依靠计算图的中间表示来实现优化，例如自动微 分和动态内存管理。但是，计算图级别的优化通常过于高级，无法处理特定硬件后端的算子 级转换 。
+为了在不同的硬件后端上同时实现计算图级别和算子级别的优化，让深度学习计算被更广泛 的应用，我们需要一套自动化的针对不同硬件后端的深度学习编译技术。
+主要工作 这节我们介绍深度学习编译技术中的一些代表性工作。
+TVM 为了解决上一节所说的种种问题，陈天奇等人提出了 TVM4，第一个端到端的深度学习自 动编译和代码生成方法。TVM 允许将高级框架（如 TensorFlow、MXNet、PyTorch 等）专用 的深度学习网络部署到多种硬件后端上（包括 CPU、GPU 和基于 FPGA 的加速器）。在设计 上，TVM 结合了内存访问、线程模式和新的硬件元语，建立一个足够大的搜索空间，保证可 能的人工工程优化全部包含在这个搜索空间里面。TVM 通过快速的搜索这个搜索空间，生成 可部署代码。其性能可与当前最优的硬件供应商库相比，且可适应新型专用加速器后端。</description>
+    </item>
+    
+  </channel>
+</rss>
