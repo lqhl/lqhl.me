@@ -1,32 +1,41 @@
-baseUrl: "https://lqhl.github.io/"
+baseUrl: "https://lqhl.me/"
 theme: hugo-bearblog
 
 publishDir: docs
 
 title: "巴别之塔"
-author: "lqhl"
-copyright: "Copyright © 2021, lqhl."
+author:
+  name: "Qin Liu"
+  email: lqgy2001@gmail.com
+copyright: "Copyright © 2022, Qin Liu."
 languageCode: zh
+
+menu:
+  main:
+  - name: Research
+    url: /research/
 
 # Generate a nice robots.txt for SEO
 enableRobotsTXT: true
 
-# Generate "Bearblog"-like URLs !only!, see https://bearblog.dev/.
-disableKinds:
-  - "taxonomy"
-ignoreErrors:
-  - "error-disable-taxonomy"
-permalinks:
-  # blog: /:year/:month/:title/
-  # tags: "/blog/:slug"
+taxonomies:
+  tag: tags
 
-# Your Disqus sortname.
-disqusShortname: "lqhl"
+permalinks:
+  blog: "/blog/:filename"
+  tags: "/tags/:slug"
 
 params:
   title: "巴别之塔"
   description: "lqhl's blog"
+  favicon: "images/logo.png"
+  utterances:
+    repo: "lqhl/lqhl.github.io"
+    issue_term: "pathname"
+    label: "comment"
+    theme: "github-light"
 
 markup:
   highlight:
     style: github
+  goldmark.renderer.unsafe: true
