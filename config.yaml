@@ -30,7 +30,7 @@ params:
   description: "lqhl's blog"
   favicon: "images/logo.png"
   utterances:
-    repo: "lqhl/lqhl.github.io"
+    repo: "lqhl/lqhl.me"
     issue_term: "pathname"
     label: "comment"
     theme: "github-light"
