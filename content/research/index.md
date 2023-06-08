@@ -3,7 +3,9 @@ title: "About"
 date: 2022-12-31T22:15:29+08:00
 ---
 
-I am Qin Liu, a software engineer at Moqi since 2017. Prior to that, I was a researcher at Huawei Noah's Ark Lab. I earned my PhD in Computer Science from the Chinese University of Hong Kong (CUHK), where I was supervised by [Prof. John C.S. Lui](https://www.cse.cuhk.edu.hk/~cslui/). During my time at CUHK, I was part of the [Advanced Networking and System Research Laboratory (ANSRLab)](http://ansrlab.cse.cuhk.edu.hk/). My Bachelor degree in Computer Science is from Shanghai Jiao Tong University, and I was part of the [ACM Honors Class](https://acm.sjtu.edu.cn/home) there.
+I am building [MyScale](https://myscale.com), a fully-managed vector database starting from Oct 2022.  Previously, I led the infrastructure team at Moqi from Feb 2017 to Sep 2022, where I developed two billion-scale Automated Fingerprint Identification Systems (AFIS) in China and the world's first contactless fingerprint scanner, MOQI A1, with image quality comparable to contact scanners. Before Moqi, I was a researcher at Huawei Noah's Ark Lab for five months.
+
+I hold a PhD in Computer Science from the Chinese University of Hong Kong (CUHK), supervised by [Prof. John C.S. Lui](https://www.cse.cuhk.edu.hk/~cslui/), where I focused on graph analytics and stream processing systems as part of the [Advanced Networking and System Research Laboratory](http://ansrlab.cse.cuhk.edu.hk/) (ANSRLab). I completed my Bachelor's degree in Computer Science at Shanghai Jiao Tong University, where I was a member of the [ACM Honors Class](https://acm.sjtu.edu.cn/home).
 
 ## Publications
 
