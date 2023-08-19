@@ -3,17 +3,21 @@ theme: hugo-bearblog
 
 publishDir: docs
 
-title: "巴别之塔"
+title: "巴别之塔 - Tower of Babel"
 author:
   name: "Qin Liu"
   email: lqgy2001@gmail.com
-copyright: "Copyright © 2022, Qin Liu."
+copyright: "Copyright © 2023, Qin Liu."
 languageCode: zh
 
 menu:
   main:
   - name: Research
     url: /research/
+  - name: Notion
+    url: https://lqhl.notion.site/Qin-s-Digital-Garden-8032c0f3ab344dc3b493800a57209059
+  - name: Github
+    url: https://github.com/lqhl
 
 # Generate a nice robots.txt for SEO
 enableRobotsTXT: true
