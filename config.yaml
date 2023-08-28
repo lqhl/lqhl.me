@@ -14,10 +14,6 @@ menu:
   main:
   - name: Research
     url: /research/
-  - name: Notion
-    url: https://lqhl.notion.site/Qin-s-Digital-Garden-8032c0f3ab344dc3b493800a57209059
-  - name: Github
-    url: https://github.com/lqhl
 
 # Generate a nice robots.txt for SEO
 enableRobotsTXT: true
