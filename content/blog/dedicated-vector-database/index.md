@@ -6,7 +6,7 @@ description = "解释为什么以及何时您实际上需要专门的向量解�
 tags = ["ai","database","vector-database"]
 +++
 
-> 原文由 [Andrey Vasnetsov](https://vasnetsov.com/)（开源数据库 Qdrant 的创始人和 CTO）发布在 [Qdrant 博客](https://qdrant.tech/articles/dedicated-service/)。翻译已经过原作者同意，转载请保留原文链接和译者信息。
+> 原文由 [Andrey Vasnetsov](https://vasnetsov.com/)（开源向量数据库 Qdrant 的创始人和 CTO）发布在 [Qdrant 博客](https://qdrant.tech/articles/dedicated-service/)。翻译已经过原作者同意，转载请保留原文链接和译者信息。
 >
 > 译者：[lqhl](https://lqhl.me)，来自 [MyScale](https://myscale.com/)（一个基于 SQL 的全托管向量数据库）的软件工程师。
 
