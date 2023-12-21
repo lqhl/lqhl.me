@@ -7,12 +7,9 @@ I'm a system programmer who is interested in
 - Olympic weight lifting
 - Basketball
 
-![Weight Lifting](images/weight-lifting.jpeg)
-
 Links:
 
 - [Twitter](https://twitter.com/qliu52)
 - [Github](https://github.com/lqhl)
 - [Notion](https://lqhl.notion.site/Qin-s-Digital-Garden-8032c0f3ab344dc3b493800a57209059)
 - [Google Scholar](https://scholar.google.com/citations?user=xw81OpsAAAAJ&hl=en)
-

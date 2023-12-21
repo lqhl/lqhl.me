@@ -6,10 +6,9 @@ description = "解释为什么以及何时您实际上需要专门的向量解�
 tags = ["ai","database","vector-database"]
 +++
 
-> - 原文链接：<https://qdrant.tech/articles/dedicated-service/>
-> - 作者：[Andrey Vasnetsov](https://vasnetsov.com/)，开源数据库 Qdrant 的创始人和 CTO
-> - 译者：[lqhl](https://lqhl.me)，来自基于 SQL 的向量数据库 [MyScale](https://myscale.com/) 的软件工程师
-> - 翻译已经过原作者同意，转载请保留原文链接和译者信息
+> 原文由 [Andrey Vasnetsov](https://vasnetsov.com/)（开源数据库 Qdrant 的创始人和 CTO）发布在 [Qdrant 博客](https://qdrant.tech/articles/dedicated-service/)。翻译已经过原作者同意，转载请保留原文链接和译者信息。
+>
+> 译者：[lqhl](https://lqhl.me)，来自 [MyScale](https://myscale.com/)（一个基于 SQL 的全托管向量数据库）的软件工程师。
 
 自从数据科学界发现向量搜索显著改善了大语言模型的答案以来，各种供应商和爱好者一直在就存储嵌入向量的合适解决方案进行争论。
 
@@ -84,7 +83,7 @@ tags = ["ai","database","vector-database"]
 
 幸运的是，数据同步问题并不是新问题，而且绝对不是向量搜索所独有的。有许多众所周知的解决方案，从消息队列开始，到专门的 ETL 工具结束。
 
-例如，最近我们（译者注：此处指开源向量数据库 Qdrant）发布了[与 Airbyte 的集成](https://qdrant.tech/documentation/frameworks/airbyte/)，允许您将来自各种来源的数据逐步同步到 Qdrant 中。
+例如，最近我们发布了[与 Airbyte 的集成](https://qdrant.tech/documentation/frameworks/airbyte/)，允许您将来自各种来源的数据逐步同步到 Qdrant 中。
 
 ### 你需要为两种解决方案的向量服务的运行时间和数据传输付费
 
@@ -102,7 +101,7 @@ tags = ["ai","database","vector-database"]
 
 ![读写分离 + 跨区部署](image.png)
 
-将向量数据库与传统数据库分离在大型企业组织中尤其重要，因为系统的不同部分责任分散在不同团队之间。在这种情况下，为人工智能团队维护一个专用的搜索引擎要比说服核心团队更新整个主数据库容易得多。
+将向量数据库与现有数据库分离在大型企业组织中尤其重要，因为系统的不同部分责任分散在不同团队之间。在这种情况下，为人工智能团队维护一个专用的搜索引擎要比说服核心团队更新整个主数据库容易得多。
 
 最后，全能数据库的向量功能与整个软件栈的开发和发布周期紧密相关。它们长期的使用历史也意味着它们需要为向后兼容性付出很高的代价。
 
