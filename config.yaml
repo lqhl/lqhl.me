@@ -7,7 +7,7 @@ title: "巴别之塔 - Tower of Babel"
 author:
   name: "Qin Liu"
   email: lqgy2001@gmail.com
-copyright: "Copyright © 2023, Qin Liu."
+copyright: "Copyright © 2023 - 2024, Qin Liu."
 languageCode: zh
 
 menu:
@@ -39,3 +39,4 @@ markup:
   highlight:
     style: github
   goldmark.renderer.unsafe: true
+
