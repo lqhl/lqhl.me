@@ -28,17 +28,17 @@ RAG 系统的核心是存储了大量文档的向量数据库。这个数据库�
 
 ![Pre-filtering vs. post-filtering](image.png)
 
-前过滤的挑战在于如何高效地进行元数据过滤，以及在过滤后向量数量较少时，向量索引的搜索效率。例如，使用广泛的 HNSW 算法在过滤比例较低（例如过滤后只剩下 1% 的向量）时，搜索效果会大幅下降。为此，[Qdrant](https://blog.vasnetsov.com/posts/categorical-hnsw/) 和 [Weaviate](https://weaviate.io/developers/weaviate/current/architecture/prefiltering.html) 进行了一些探索，通常的做法是在过滤比例较低时，从 HNSW 算法回退到暴力搜索。
+前过滤的挑战在于如何高效地进行元数据过滤，以及在过滤后向量数量较少时，向量索引的搜索效率。例如，使用广泛的 HNSW (Hierarchical Navigable Small World) 算法在过滤比例较低（例如过滤后只剩下 1% 的向量）时，搜索效果会大幅下降。为此，[Qdrant](https://blog.vasnetsov.com/posts/categorical-hnsw/) 和 [Weaviate](https://weaviate.io/developers/weaviate/current/architecture/prefiltering.html) 进行了一些探索，通常的做法是在过滤比例较低时，从 HNSW 算法回退到暴力搜索。
 
 ## Benchmark 结果
 
 参考对多个向量数据库的云服务进行了测试的 [MyScale Vector Database Benchmark](https://myscale.github.io/benchmark/)。在过滤比例为 1% 的测试中（即施加过滤条件后，全库中只有 1% 的向量满足条件），结果如下：
 
-![过滤比例 1% 时向量数据库的 precision vs. throughput](all-results.png)
+![过滤比例为 1% 时，不同向量数据库的 precision vs. throughput](all-results.png)
 
 从结果来看，[OpenSearch](https://opensearch.org/)（两个版本 v2.7 和 v2.11）和 [pgvector](https://github.com/pgvector/pgvector) 的精度过低，不足 50%。Zilliz 的 capacity 模式性能过低，不到 1 QPS (query per second)。排除这些选项后，再看一下剩下的结果：
 
-![过滤比例 1% 时向量数据库的 precision vs. throughput](results.png)
+![过滤比例为 1% 时，几个向量数据库的 precision vs. throughput](results.png)
 
 可以看出，精度和性能都比较好的数据库包括 [MyScale](https://myscale.com/)、[Qdrant](https://qdrant.tech/) 和 [Pinecone](https://www.pinecone.io/) (p2 pod)。而 [Pgvecto.rs](https://github.com/tensorchord/pgvecto.rs)、[Zilliz](https://zilliz.com/) (Performance & Cost-optimized 模式)、Pinecone (s1 pod) 的精度还不错，但性能较低。在这些数据库中，MyScale 和 Pinecone 只提供全托管的 SaaS 服务。Qdrant 和 Zilliz (开源版本为 [Milvus](https://milvus.io/)) 既有 SaaS 服务也有开源版本。Pgvecto.rs 目前是一款完全开源的 Postgres 插件，暂无 SaaS 版本。
 
