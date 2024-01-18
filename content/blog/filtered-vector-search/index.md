@@ -34,11 +34,11 @@ RAG 系统的核心是存储了大量文档的向量数据库。这个数据库�
 
 参考对多个向量数据库的云服务进行了测试的 [MyScale Vector Database Benchmark](https://myscale.github.io/benchmark/)。在过滤比例为 1% 的测试中（即施加过滤条件后，全库中只有 1% 的向量满足条件），结果如下：
 
-![All results](all-results.png)
+![过滤比例 1% 时向量数据库的 precision vs. throughput](all-results.png)
 
 从结果来看，[OpenSearch](https://opensearch.org/)（两个版本 v2.7 和 v2.11）和 [pgvector](https://github.com/pgvector/pgvector) 的精度过低，不足 50%。Zilliz 的 capacity 模式性能过低，不到 1 QPS (query per second)。排除这些选项后，再看一下剩下的结果：
 
-![Results](results.png)
+![过滤比例 1% 时向量数据库的 precision vs. throughput](results.png)
 
 可以看出，精度和性能都比较好的数据库包括 [MyScale](https://myscale.com/)、[Qdrant](https://qdrant.tech/) 和 [Pinecone](https://www.pinecone.io/) (p2 pod)。而 [Pgvecto.rs](https://github.com/tensorchord/pgvecto.rs)、[Zilliz](https://zilliz.com/) (Performance & Cost-optimized 模式)、Pinecone (s1 pod) 的精度还不错，但性能较低。在这些数据库中，MyScale 和 Pinecone 只提供全托管的 SaaS 服务。Qdrant 和 Zilliz (开源版本为 [Milvus](https://milvus.io/)) 既有 SaaS 服务也有开源版本。Pgvecto.rs 目前是一款完全开源的 Postgres 插件，暂无 SaaS 版本。
 
