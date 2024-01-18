@@ -1,7 +1,6 @@
 +++
-title = "RAG 系统解析：如何让大型语言模型更聪明"
+title = "过滤向量搜索：RAG 系统中的关键技术"
 date = "2024-01-18T17:56:47+08:00"
-draft = true
 
 description = "探索 RAG（Retrieval-Augmented Generation）系统的深度解析：本篇文章详细介绍了如何通过向量数据库和大型语言模型（LLMs）的结合，显著提升生成式人工智能（GenAI）应用的性能。深入了解前过滤和后过滤策略，以及不同向量数据库在 RAG 系统中的应用和性能表现。本文还包括对 MyScale、Qdrant、Pinecone 等主要向量数据库的综合评测，为 GenAI 领域的技术进步提供洞见。"
 
@@ -29,19 +28,19 @@ RAG 系统的核心是存储了大量文档的向量数据库。这个数据库�
 
 ![Pre-filtering vs. post-filtering](image.png)
 
-前过滤的挑战在于如何高效地进行元数据过滤，以及在过滤后向量数量较少时，向量索引的搜索效率。例如，使用广泛的 HNSW 算法在高过滤比例（例如过滤后只剩下 1% 的向量）时，搜索效果会大幅下降。为此，[Qdrant](https://blog.vasnetsov.com/posts/categorical-hnsw/) 和 [Weaviate](https://weaviate.io/developers/weaviate/current/architecture/prefiltering.html) 进行了一些探索，通常的做法是在过滤比例较高时，从 HNSW 算法回退到暴力搜索。
+前过滤的挑战在于如何高效地进行元数据过滤，以及在过滤后向量数量较少时，向量索引的搜索效率。例如，使用广泛的 HNSW 算法在过滤比例较低（例如过滤后只剩下 1% 的向量）时，搜索效果会大幅下降。为此，[Qdrant](https://blog.vasnetsov.com/posts/categorical-hnsw/) 和 [Weaviate](https://weaviate.io/developers/weaviate/current/architecture/prefiltering.html) 进行了一些探索，通常的做法是在过滤比例较低时，从 HNSW 算法回退到暴力搜索。
 
 ## Benchmark 结果
 
-我们对多个向量数据库的云服务进行了测试，完整的结果和测试方法见 [MyScale Vector Database Benchmark](https://myscale.github.io/benchmark/)。在过滤比例为 1% 的测试中（即施加过滤条件后，只有 1% 的向量满足条件），结果如下：
+参考对多个向量数据库的云服务进行了测试的 [MyScale Vector Database Benchmark](https://myscale.github.io/benchmark/)。在过滤比例为 1% 的测试中（即施加过滤条件后，全库中只有 1% 的向量满足条件），结果如下：
 
 ![All results](all-results.png)
 
-从结果来看，OpenSearch（两个版本 v2.7 和 v2.11）、pgvector 的精度过低，不足 50%。Zilliz 的 capacity 模式性能过低，不到 1 QPS (query per second)。排除这些选项后，再看一下剩下的结果：
+从结果来看，[OpenSearch](https://opensearch.org/)（两个版本 v2.7 和 v2.11）和 [pgvector](https://github.com/pgvector/pgvector) 的精度过低，不足 50%。Zilliz 的 capacity 模式性能过低，不到 1 QPS (query per second)。排除这些选项后，再看一下剩下的结果：
 
 ![Results](results.png)
 
-可以看出，性能较好的数据库包括 MyScale、Qdrant 和 Pinecone (p2 pod)。而 Pgvecto.rs、Zilliz (Performance & Cost-optimized 模式)、Pinecone (s1 pod) 的性能较低。
+可以看出，精度和性能都比较好的数据库包括 [MyScale](https://myscale.com/)、[Qdrant](https://qdrant.tech/) 和 [Pinecone](https://www.pinecone.io/) (p2 pod)。而 [Pgvecto.rs](https://github.com/tensorchord/pgvecto.rs)、[Zilliz](https://zilliz.com/) (Performance & Cost-optimized 模式)、Pinecone (s1 pod) 的精度还不错，但性能较低。在这些数据库中，MyScale 和 Pinecone 只提供全托管的 SaaS 服务。Qdrant 和 Zilliz (开源版本为 [Milvus](https://milvus.io/)) 既有 SaaS 服务也有开源版本。Pgvecto.rs 目前是一款完全开源的 Postgres 插件，暂无 SaaS 版本。
 
 [^1]: [Pinecone RAG Study](https://www.pinecone.io/blog/rag-study/)
 [^2]: [MyScale: Teaching LLMs with Vector SQL](https://myscale.com/blog/teach-your-llm-vector-sql/)
@@ -49,4 +48,4 @@ RAG 系统的核心是存储了大量文档的向量数据库。这个数据库�
 
 ### 总结
 
-RAG 系统结合了大型语言模型和向量数据库，通过处理用户问题和相关文档片段，显著提升了 GenAI 应用的效果。向量数据库的搜索效率和准确度是系统性能的关键。优化搜索策略（如前过滤和后过滤）和选择合适的向量数据库是提升 RAG 系统效果的重要因素。通过对各种数据库的综合评测，可以为不同需求选择最佳解决方案，推动 GenAI 领域的进步。
+RAG 系统结合了大型语言模型和向量数据库，通过处理用户问题和相关文档片段，显著提升了 GenAI 应用的效果。向量数据库的搜索效率和准确度是系统性能的关键。优化搜索策略（如前过滤和后过滤）和选择合适的向量数据库是提升 RAG 系统效果的重要因素。通过对各种数据库的综合评测，用户可以为不同需求选择最佳解决方案，推动 GenAI 领域的进步。
