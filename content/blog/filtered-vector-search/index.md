@@ -42,10 +42,10 @@ RAG 系统的核心是存储了大量文档的向量数据库。这个数据库�
 
 可以看出，精度和性能都比较好的数据库包括 [MyScale](https://myscale.com/)、[Qdrant](https://qdrant.tech/) 和 [Pinecone](https://www.pinecone.io/) (p2 pod)。而 [Pgvecto.rs](https://github.com/tensorchord/pgvecto.rs)、[Zilliz](https://zilliz.com/) (Performance & Cost-optimized 模式)、Pinecone (s1 pod) 的精度还不错，但性能较低。在这些数据库中，MyScale 和 Pinecone 只提供全托管的 SaaS 服务。Qdrant 和 Zilliz (开源版本为 [Milvus](https://milvus.io/)) 既有 SaaS 服务也有开源版本。Pgvecto.rs 目前是一款完全开源的 Postgres 插件，暂无 SaaS 版本。
 
+## 总结
+
+RAG 系统结合了大型语言模型和向量数据库，通过处理用户问题和相关文档片段，显著提升了 GenAI 应用的效果。向量数据库的搜索效率和准确度是系统性能的关键。优化搜索策略（如前过滤和后过滤）和选择合适的向量数据库是提升 RAG 系统效果的重要因素。通过对各种数据库的综合评测，用户可以为不同需求选择最佳解决方案，推动 GenAI 领域的进步。
+
 [^1]: [Pinecone RAG Study](https://www.pinecone.io/blog/rag-study/)
 [^2]: [MyScale: Teaching LLMs with Vector SQL](https://myscale.com/blog/teach-your-llm-vector-sql/)
 [^3]: [RAG on arXiv](https://arxiv.org/abs/2005.11401)
-
-### 总结
-
-RAG 系统结合了大型语言模型和向量数据库，通过处理用户问题和相关文档片段，显著提升了 GenAI 应用的效果。向量数据库的搜索效率和准确度是系统性能的关键。优化搜索策略（如前过滤和后过滤）和选择合适的向量数据库是提升 RAG 系统效果的重要因素。通过对各种数据库的综合评测，用户可以为不同需求选择最佳解决方案，推动 GenAI 领域的进步。
