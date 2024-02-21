@@ -5,13 +5,13 @@
 Hi👋! 我是 lqhl，一个对技术充满好奇心的软件工程师。现在，我正专注于向量数据库（我参与了
 [MyScale](https://myscale.com/)
 的打造）和检索增强生成（RAG）技术。此前，我对
-[recommendation systems](https://cs.stanford.edu/~diyiy/docs/kddcup2012.pdf) /
-[stream processing systems](https://ieeexplore.ieee.org/document/6903569) /
-[graph processing systems](https://ieeexplore.ieee.org/document/7113362) /
-[graph analytics](https://arxiv.org/abs/1608.06054) 都有所涉猎。
+[recommendation systems](/publication/kddcup2012.pdf) /
+[stream processing systems](/publication/dsn2014.pdf) /
+[graph processing systems](/publication/tkde2015.pdf) /
+[graph](/publication/cikm2016.pdf) [analytics](/publication/kdd2017.pdf) 都有所涉猎。
 
 AI 领域特别吸引我，尤其是大型语言模型（LLMs）和图像及视频生成技术。
-除了敲代码，我还喜欢[举重](/images/weight-lifting.jpeg)和打篮球。
+除了敲代码，我还喜欢[举重](https://www.bilibili.com/video/BV1xK4y1E7xY/)和打篮球。
 
 想和我交流吗？
 
