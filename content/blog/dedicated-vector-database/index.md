@@ -3,7 +3,7 @@ title = "向量搜索作为一项专门的服务"
 date = "2023-12-21T10:00:00+08:00"
 description = "解释为什么以及何时您实际上需要专门的向量解决方案，驳斥一些毫无根据的说法和在构建向量搜索系统时应避免的反模式。"
 
-tags = ["ai","database","vector-database"]
+tags = ["AI","database","vector-database"]
 +++
 
 > 原文由 [Andrey Vasnetsov](https://vasnetsov.com/)（开源向量数据库 Qdrant 的创始人和 CTO）发布在 [Qdrant 博客](https://qdrant.tech/articles/dedicated-service/)。翻译已经过原作者同意，转载请保留原文链接和译者信息。
