@@ -1,7 +1,7 @@
 +++
 title = "实践一个月的时间统计法"
 date = "2022-07-10T11:45:00+08:00"
-tags = ["time-management",]
+tags = ["TimeManagement", "Personal"]
 +++
 
 最近一个月，我在 iPhone 和 Apple Watch 上安装了 **aTimeLogger** 应用，来记录我把时间都花在了哪里。最早了解到**时间统计法**，是因为在网上看到了关于[**柳比歇夫**](https://zh.wikipedia.org/wiki/%E4%BA%9A%E5%8E%86%E5%B1%B1%E5%A4%A7%C2%B7%E4%BA%9A%E5%8E%86%E5%B1%B1%E5%BE%B7%E7%BD%97%E7%BB%B4%E5%A5%87%C2%B7%E6%9F%B3%E6%AF%94%E6%AD%87%E5%A4%AB)的介绍（不过我并没有看过[《奇特的一生》](https://book.douban.com/subject/1115353/)）。2016 - 2018 年，我也陆陆续续进行过时间统计，主要是统计工作、运动、睡眠的时间，防止自己过劳死。

@@ -2,7 +2,7 @@
 title = "Qin Liu's Academic Family Tree"
 date = "2014-11-18T23:19:18+08:00"
 
-tags = ["research", "personal"]
+tags = ["Research", "Personal"]
 +++
 
 My PhD advisor is [John C.S. Lui](https://www.cse.cuhk.edu.hk/~cslui/). I worked up the tree of academic ancestors (their advisors, etc.) via [The Mathematics Genealogy Project](http://genealogy.math.ndsu.nodak.edu/).

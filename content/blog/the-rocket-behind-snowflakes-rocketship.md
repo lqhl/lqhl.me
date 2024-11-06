@@ -2,7 +2,7 @@
 title: "译文 | Snowflake 火箭船背后的火箭"
 date: "2022-03-27T10:50:44+08:00"
 description: "Snowflake 是第一家提供云原生数仓服务的公司。本文中，Snowflake 工程部的高级副总裁 Greg Czajkowski 介绍了他们提供创新产品并保证高质量和快速交付的秘诀。"
-tags: ["management", "translation"]
+tags: ["Management", "Translation"]
 ---
 
 > 原文：[The Rocket Behind Snowflake’s Rocketship](https://www.snowflake.com/blog/the-rocket-behind-snowflakes-rocketship/)

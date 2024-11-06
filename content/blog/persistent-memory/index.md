@@ -2,7 +2,7 @@
 title: 持久内存在图像搜索中的应用
 date: 2021-04-01T11:11:34+08:00
 description: 在墨奇科技，我们用基于向量（vector）和图（graph）的近似搜索算法，构建高精度的大规模图像搜索引擎。目前，在 20 亿级别的指纹图像上，我们可以做到精确搜索的秒级响应。在这个过程中，我们将英特尔 ® 傲腾™持久内存融合到了图像搜索引擎中，使得系统的整体性价比得到了大幅度的提升。这个改进的核心是使用英特尔 ® 傲腾™持久内存的 App Direct 模式代替内存作为向量和图索引结构的缓存，在维持较高性能的同时，大幅度降低了内存开销。
-tags: ['moqi', 'system']
+tags: ['Moqi', 'System']
 ---
 
 > 原文发表于墨奇博客：<https://blog.moqi.com.cn/persistent-memory/>
@@ -154,8 +154,8 @@ tags: ['moqi', 'system']
    ```bash
    $ lsblk
    NAME MAJ:MIN RM SIZE RO TYPE MOUNTPOINT
-   pmem0 259:0 0 2.9T 0 disk 
-   pmem13 259:1 0 2.9T 0 disk 
+   pmem0 259:0 0 2.9T 0 disk
+   pmem13 259:1 0 2.9T 0 disk
    ```
 
 5. 用 XFS 格式化 PMEM 的块设备：

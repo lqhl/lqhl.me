@@ -3,7 +3,7 @@ title = "我的壶铃训练计划"
 date = "2023-01-26T11:07:20+08:00"
 description = "基于 Simple & Sinister 和 Mark Wildman 的 nerd math 制定自己的健身计划"
 
-tags = ["kettlebell"]
+tags = ["Workout", "Personal"]
 +++
 
 自从去年 5 月搬家之后，附近没有什么健身房，考虑疫情带来的各种不确定性也不太想在健身房练了。于是我就买了几个壶铃自娱自乐，最近还买了一个棒铃。练壶铃我主要参考的是网络上硬式壶铃的各种资料，包括：

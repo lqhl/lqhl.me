@@ -2,7 +2,7 @@
 title = "Clickhouse 存储引擎"
 date = "2022-12-08T10:42:45+08:00"
 
-tags = ["database", "clickhouse"]
+tags = ["Database", "ClickHouse", "System"]
 +++
 
 ClickHouse 实现高效 OLAP 查询的秘诀，在于它强大的存储引擎 MergeTree（合并树）。

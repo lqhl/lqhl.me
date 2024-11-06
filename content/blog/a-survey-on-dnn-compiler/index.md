@@ -1,7 +1,7 @@
 ---
 title: 深度神经网络编译器调研
 date: 2021-06-10T19:46:35+08:00
-tags: ["research", "AI", "system"]
+tags: ["Research", "MLSys", "System"]
 ---
 
 在墨奇科技，我们需要将一些包含深度神经网络（DNN）的 AI 算法移植到边缘端的设备，

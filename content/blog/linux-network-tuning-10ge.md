@@ -1,7 +1,7 @@
 ---
 title: Linux Network Tuning - 10 GE
 date: 2018-09-14T20:26:21+08:00
-tags: ['linux', 'networking']
+tags: ['Linux', 'Networking']
 ---
 
 最近在研究如何为公司搭建 40/100 GE，在购买新设备之前，决定先在现有的 10 GE 网络上做一些 benchmark。
@@ -93,9 +93,9 @@ Step 2. 调整 kernel 中网络相关的参数，修改 `/etc/sysctl.conf`：
 ```ini
 # increase TCP max buffer size setable using setsockopt()
 # allow testing with 256MB buffers
-net.core.rmem_max = 268435456 
-net.core.wmem_max = 268435456 
-# increase Linux autotuning TCP buffer limits 
+net.core.rmem_max = 268435456
+net.core.wmem_max = 268435456
+# increase Linux autotuning TCP buffer limits
 # min, default, and max number of bytes to use
 # allow auto-tuning up to 128MB buffers
 net.ipv4.tcp_rmem = 4096 87380 134217728

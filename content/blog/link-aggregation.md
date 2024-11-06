@@ -1,7 +1,7 @@
 ---
 title: 链路聚合
 date: 2018-05-15T12:22:34+08:00
-tags: ['linux', 'networking']
+tags: ['Linux', 'Networking']
 ---
 
 链路聚合（bonding or link aggregation）将多个物理网卡捆绑在一起，形成一个逻辑端口。它可以用于增加链路带宽和提供链路的冗余与容错。

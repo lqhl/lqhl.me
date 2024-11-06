@@ -2,7 +2,7 @@
 title = "Mem0：用三个 prompt 打造 19K 星的网红 AI 项目"
 date = "2024-08-07T19:58:40+08:00"
 description = "这篇文章详细介绍了 Mem0，一个在 GitHub 上获得超过 19,000 颗星的创新 AI 项目。Mem0 旨在通过独特的记忆层设计来增强 AI 系统的持续学习和个性化能力。文章阐述了 Mem0 的核心概念，包括其四步工作流程：记忆提取、记忆搜索、记忆更新和基于记忆的响应。重点分析了驱动 Mem0 功能的三个关键提示 (prompts):MEMORY_DEDUCTION_PROMPT、UPDATE_MEMORY_PROMPT 和 MEMORY_ANSWER_PROMPT，解释了每个提示的设计目的和作用。最后，文章总结了 Mem0 的创新性，指出它代表了 AI 系统个性化和适应性的重要进步。"
-tags = ["AI","LLM","vector-database",]
+tags = ["VectorDB", "RAG"]
 +++
 
 在快速发展的人工智能世界中，[Mem0](https://github.com/mem0ai/mem0) 作为一个杰出项目脱颖而出，在 GitHub 上获得了超过 19,000 颗星。这个创新系统旨在通过独特的记忆层设计来增强 AI 持续学习和适应个别用户需求的能力。Mem0 成功的核心在于三个精心设计的提示 (prompt),这些提示驱动了它的功能。

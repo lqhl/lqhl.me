@@ -1,7 +1,7 @@
 +++
 title = "Review 2022 & New Year's Resolution 2023"
 date = "2023-01-01T23:26:10+08:00"
-tags = ["personal"]
+tags = ["Personal"]
 
 +++
 
