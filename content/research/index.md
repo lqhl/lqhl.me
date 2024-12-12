@@ -3,7 +3,7 @@ title: "Research"
 date: 2022-12-31T22:15:29+08:00
 ---
 
-I am Qin Liu and I joined [MyScale](https://myscale.com), a fully-managed vector database, in 2022. Prior to this, I led the infrastructure team at Moqi. During my time there, I contributed to the development of two billion-scale Automated Fingerprint Identification Systems (AFIS) in China. Additionally, I was involved in creating MOQI A1, the world's first contactless fingerprint scanner with image quality comparable to contact scanners. Before joining Moqi, I worked as a researcher at Huawei Noah's Ark Lab.
+I am Qin Liu, a software engineer at ByteDance since Dec 2024. Previously, I led the infrastructure team at Moqi, where I developed [MyScaleDB](https://github.com/myscale/MyScaleDB), a ClickHouse fork that supports high-performance vector search and full-text search. During my time at Moqi, I also contributed to the development of two billion-scale Automated Fingerprint Identification Systems (AFIS) in China. Additionally, I was involved in creating MOQI A1, the world's first contactless fingerprint scanner with image quality comparable to contact scanners. Before joining Moqi, I worked as a researcher at Huawei Noah's Ark Lab.
 
 I have a PhD in Computer Science from the Chinese University of Hong Kong (CUHK), under the supervision of [Prof. John C.S. Lui](https://www.cse.cuhk.edu.hk/~cslui/). My research at the [Advanced Networking and System Research Laboratory](http://ansrlab.cse.cuhk.edu.hk/) (ANSRLab) focused on graph analytics and stream processing systems. Prior to that, I obtained my Bachelor's degree in Computer Science from Shanghai Jiao Tong University, where I was a member of the prestigious [ACM Honors Class](https://acm.sjtu.edu.cn/home).
 
