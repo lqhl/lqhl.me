@@ -4,7 +4,7 @@ date = "2024-10-25T16:08:22+08:00"
 
 description = ""
 
-tags = ["VectorDB", "RAG", "Graph", "Paper"]
+tags = ["vector-database", "RAG", "Graph", "Paper"]
 +++
 
 微软的 GraphRAG 使 RAG（Retrieval-Augmented Generation）与知识图谱结合的概念备受关注。然而，GraphRAG 在构建知识图谱时需要频繁调用大型语言模型（LLM），导致成本高且速度慢。相比之下，LightRAG（[arxiv](https://arxiv.org/abs/2410.05779v1), [repo](https://github.com/HKUDS/LightRAG)）利用 LLM 将文档转化为知识图谱，并结合向量数据库进行检索和回答问题。LightRAG 显著减少了 LLM 的调用次数，从而降低了知识图谱构建的成本。
