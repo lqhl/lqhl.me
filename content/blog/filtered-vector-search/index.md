@@ -4,7 +4,7 @@ date = "2024-01-18T17:56:47+08:00"
 
 description = "探索 RAG（Retrieval-Augmented Generation）系统的深度解析：本篇文章详细介绍了如何通过向量数据库和大型语言模型（LLMs）的结合，显著提升生成式人工智能（GenAI）应用的性能。深入了解前过滤和后过滤策略，以及不同向量数据库在 RAG 系统中的应用和性能表现。本文还包括对 MyScale、Qdrant、Pinecone 等主要向量数据库的综合评测，为 GenAI 领域的技术进步提供洞见。"
 
-tags = ["Database", "vector-database", "System"]
+tags = ["Database", "Vector-Database", "System"]
 +++
 
 在基本的 RAG (Retrieval-Augmented Generation) 系统中，文档（包括文本、PDF、Word、PPT 等）首先经过切割 (chunking) 处理，提取出嵌入向量 (embedding) 后存储于向量数据库中进行索引。用户提问时，系统先从索引中检索与用户问题最相关的文档，然后将用户问题和相关文档片段送给大型语言模型 (LLMs) 生成更准确的答案。

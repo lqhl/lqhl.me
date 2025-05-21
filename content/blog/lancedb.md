@@ -1,10 +1,8 @@
 +++
 title = "LanceDB 技术架构分析：存储、缓存、ANN 索引及 Lance 文件格式"
 date = "2025-05-20T23:03:58+08:00"
-
 description = "深入探索 LanceDB 的技术奥秘！LanceDB 不仅仅是一个数据库，它更是为多模态 AI 量身打造的数据管理利器。它基于创新的 Lance 文件格式，号称比 Parquet 快 100 倍，能统一存储向量、元数据、音视频等 AI 数据，轻松应对 PB 级规模。本文将带你全面解析 LanceDB 的存储架构、核心文件格式、缓存机制以及强大的向量索引技术，助你更好地理解和运用这个面向未来的 AI 数据库！"
-
-tags = ["ai","database","system","vector-database"]
+tags = ["Database","System","Vector-Database"]
 +++
 
 ## 1. 引言：LanceDB 的技术架构概览

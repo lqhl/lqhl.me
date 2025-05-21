@@ -1,13 +1,8 @@
 +++
 title = "Turbopuffer 向量数据库技术架构深度解析：SPFresh 索引、存储结构与 AI IDE 优化策略"
 date = "2025-04-11T22:13:13+08:00"
-
-#
-# description is optional
-#
-# description = "An optional description for SEO. If not provided, an automatically created summary will be used."
-
-tags = ["ai","database","system","vector-database",]
+description = "Turbopuffer 技术解析：本文深入探讨其 SPFresh 索引、对象存储优先架构及 AI IDE 优化，揭示其在向量数据库领域的成本与性能优势。"
+tags = ["Database","System","Vector-Database",]
 +++
 
 > 本文由 Deep Research with Gemini 2.5 Pro 撰写
