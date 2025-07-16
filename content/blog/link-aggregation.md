@@ -1,5 +1,5 @@
 ---
-title: 链路聚合
+title: Linux 上的网络链路聚合
 date: 2018-05-15T12:22:34+08:00
 tags: ['Linux', 'Networking']
 ---

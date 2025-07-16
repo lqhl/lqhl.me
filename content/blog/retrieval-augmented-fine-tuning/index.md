@@ -1,5 +1,5 @@
 +++
-title = "RAFT: 为特定领域的 RAG 应用微调 Llama 2"
+title = "论文分享｜RAFT: 为特定领域的 RAG 应用微调 Llama 2"
 date = "2024-08-30T11:37:26+08:00"
 description = "An optional description for SEO. If not provided, an automatically created summary will be used."
 tags = ["RAG", "Paper"]
