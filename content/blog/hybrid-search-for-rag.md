@@ -10,6 +10,7 @@ tags = ["RAG", "Vector-Database"]
 在构建检索增强生成（RAG）系统时，我们常常陷入一个困境：如何确保检索到的上下文既“语义相关”又“关键词精确”？
 
 想象一下这个场景：
+
 - **当用户搜索“苹果公司发布的 M3 芯片评测”时**，一个纯粹依赖向量搜索的 RAG 系统可能会返回一篇关于“苹果公司最新财报”的文章。从**语义**上看，这没错，两者都与“苹果公司”高度相关。但用户最关心的核心关键词——“M3 芯片”——却被忽略了。
 - **反过来，当用户搜索“好用的笔记本电脑”时**，一个传统的关键词搜索引擎（如 BM25）可能会因为无法理解“好用”这个主观词汇，或者因为“笔记本电脑”这个词在太多文档中出现，而返回一大堆不相关的结果。它无法领会用户寻找“高性能”、“轻薄”或“长续航”的真实**意图**。
 
@@ -145,21 +146,22 @@ print(query)
 print("
 --- BM25 (Keyword) Search Results ---")
 for i, score in sorted(bm25_results.items(), key=lambda item: item[1], reverse=True):
-    print(f"Score: {score:.4f}	Doc: {documents[i]}")
+    print(f"Score: {score:.4f} Doc: {documents[i]}")
 
 print("
 --- Vector (Semantic) Search Results ---")
 for i, score in sorted(vector_results.items(), key=lambda item: item[1], reverse=True):
-    print(f"Score: {score:.4f}	Doc: {documents[i]}")
+    print(f"Score: {score:.4f} Doc: {documents[i]}")
 
 print("
 --- Hybrid Search (RRF Fused) Results ---")
 for doc_index, score in fused_results:
-    print(f"Score: {score:.4f}	Doc: {documents[doc_index]}")
+    print(f"Score: {score:.4f} Doc: {documents[doc_index]}")
 
 ```
 
 **运行结果分析**:
+
 - **BM25** 会把包含 "M3" 和 "chip" 的文档排在最前面。
 - **向量搜索** 会把与 "Apple" 和 "review" 语义相关的文档排在前面，可能会包含那篇财报。
 - **混合搜索** 的结果则会是最好的：包含 "M3 chip" 的评测文章会因为在两个列表中都排名靠前（或至少在 BM25 中排名极高）而获得最高的 RRF 分数，从而脱颖而出。
@@ -169,7 +171,7 @@ for doc_index, score in fused_results:
 将混合搜索集成到 RAG 系统中，带来的不仅仅是检索精度的提升：
 
 - **更高质量的上下文**: LLM 获取的上下文将同时包含关键词精确和语义相关的信息，使其能够生成更全面、更准确的答案。
-- **显著减少“幻觉”**: 高质量、高相关的上下文是减少 LLM “凭空捏造”的根本。当模型有了坚实的信息基础，它就不需要去猜测和编造。
+- **显著减少“幻觉”**: 高质量、高相关的上下文是减少 LLM“凭空捏造”的根本。当模型有了坚实的信息基础，它就不需要去猜测和编造。
 - **提升用户体验**: 无论用户输入的是精确的技术术语还是模糊的日常问题，RAG 系统都能给出更可靠、更令人满意的回答，系统的鲁棒性和适用性大大增强。
 
 ## 6. 结论与展望
@@ -177,5 +179,3 @@ for doc_index, score in fused_results:
 混合搜索并非一个复杂的概念，但它通过智能地融合稀疏和稠密两种搜索范式，精准地解决了各自的短板，让搜索结果的质量产生了质的飞跃。它不再是锦上添花，而是正在成为构建下一代强大、可靠 RAG 应用的核心组件。
 
 展望未来，我们可能会看到更智能的、能够根据查询意图自适应调整融合权重的策略出现。但就目前而言，掌握并应用混合搜索，无疑是每一位 AI 应用开发者都应该具备的关键能力。
-
----
