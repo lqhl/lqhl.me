@@ -1,7 +1,7 @@
 +++
 title = "解构 Claude Code：一次版本间的进化之旅 (v1.0.0 vs v1.0.72)"
 date = "2025-08-09T21:10:00+08:00"
-description = ""
+description = "AI 编码助手 Claude Code 的 System Prompt 发生了哪些进化？本文深度对比 v1.0.0 和 v1.0.72 版本，分析其在安全策略、工具集、Hooks 等方面的巨大差异，揭示 AI 开发工具的未来趋势。"
 tags = ["AI", "Claude", "LLM", "AI Coding"]
 +++
 
