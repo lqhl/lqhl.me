@@ -22,7 +22,7 @@ taxonomies:
   tag: tags
 
 permalinks:
-  blog: "/blog/:filename"
+  blog: "/blog/:contentbasename"
   tags: "/tags/:slug"
 
 params:
@@ -38,5 +38,7 @@ params:
 markup:
   highlight:
     style: github
-  goldmark.renderer.unsafe: true
+  goldmark:
+    renderer:
+      unsafe: true
 

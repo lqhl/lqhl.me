@@ -1,5 +1,6 @@
 ---
 title: "MineContext：字节开源的屏幕记录 AI，混合架构的平衡与妥协"
+description: "解析字节跳动开源的屏幕记录 AI 工具 MineContext，与 Rewind AI、screenpipe、DayFlow 等对比，展示其混合架构的平衡与妥协。"
 date: 2025-10-02T10:00:00+08:00
 tags: ["AI"]
 ---

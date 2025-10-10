@@ -5,9 +5,5 @@
 Hi👋! I'm Qin Liu. Here are my links:
 
 - [GitHub](https://github.com/lqhl)
-- [Chinese Blog](/blog/)
-- [English Blog](https://blog.lqhl.me)
-- [Research Bio & Publications](/research/)
-- [Notion Notes](https://lqhl.notion.site)
 - [Twitter](https://twitter.com/qliu90)
-
+- [English Blog](https://blog.lqhl.me)

@@ -1,0 +1,34 @@
+{{ define "main" }}
+  {{ with .Content }}
+    <div class="home-intro">
+      {{ . }}
+    </div>
+  {{ end }}
+
+  {{ $posts := first 5 (where (.Site.RegularPages.ByDate.Reverse) "Section" "blog") }}
+  {{ if gt (len $posts) 0 }}
+    <section class="home-recent-posts">
+      <h2>Recent Posts</h2>
+      <ul>
+        {{ range $posts }}
+          <li>
+            <article>
+              <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+              <p class="home-post-meta">
+                <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time>
+              </p>
+              {{ with .Params.description }}
+                <p>{{ . }}</p>
+              {{ else }}
+                {{ with .Summary }}
+                  <p>{{ . | plainify }}</p>
+                {{ end }}
+              {{ end }}
+            </article>
+          </li>
+        {{ end }}
+      </ul>
+      <p class="home-more"><a href="/blog/">查看全部文章 →</a></p>
+    </section>
+  {{ end }}
+{{ end }}
