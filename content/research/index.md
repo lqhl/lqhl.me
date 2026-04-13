@@ -3,13 +3,15 @@ title: "Research"
 date: 2022-12-31T22:15:29+08:00
 ---
 
-As a member of Team Viking at ByteDance, I focus on the Viking engine --- an approximate nearest neighbor search engine that drives recommendation systems for TikTok and Douyin, and also supports VikingDB, the vector database of Volcano Engine.
+I work at the AI lab of a private quantitative hedge fund, focusing on AI infrastructure and ML systems. My research interests center on AI agents for long-horizon tasks such as agentic coding and autonomous research workflows.
 
-Previously, I was a founding member of Moqi and led its infrastructure team. There, I directed the development of [MyScale](https://github.com/myscale/MyScaleDB), a high-performance vector and full-text search engine based on ClickHouse. I also built two nationwide billion-scale Automated Fingerprint Identification Systems (AFIS) for the Chinese public security and created the world's first contactless fingerprint scanner, the Moqi A1, which achieves image quality comparable to traditional contact-based scanners. Before Moqi, I worked as a researcher at Huawei Noah's Ark Lab.
+Before that, I was a member of Team Viking at ByteDance (2024--2026), working on the Viking engine --- an approximate nearest neighbor search engine that drives recommendation systems for TikTok and Douyin, and also powers VikingDB, the vector database of Volcano Engine.
 
-I hold a PhD in Computer Science from The Chinese University of Hong Kong (CUHK), where I was supervised by [Prof. John C.S. Lui](https://www.cse.cuhk.edu.hk/~cslui/). My research at the [Advanced Networking and System Research Laboratory](http://ansrlab.cse.cuhk.edu.hk/) (ANSRLab) focused on graph analytics and stream processing systems. Prior to my doctoral studies, I earned a Bachelor's degree in Computer Science from Shanghai Jiao Tong University, where I was part of the [ACM Honors Class](https://acm.sjtu.edu.cn/home).
+I joined Moqi as its first engineer (2017--2024) and led the infrastructure team. There, I directed the development of [MyScale](https://github.com/myscale/MyScaleDB), a high-performance vector and full-text search engine based on ClickHouse. I also built two nationwide billion-scale Automated Fingerprint Identification Systems (AFIS) for the Chinese public security, and created the world's first contactless fingerprint scanner, the Moqi A1, which achieves image quality comparable to traditional contact-based scanners.
 
-My research interests include distributed and single-machine computer systems, as well as machine learning systems.
+Earlier, I worked as a researcher at Huawei Noah's Ark Lab (2016--2017).
+
+I hold a PhD in Computer Science from The Chinese University of Hong Kong (CUHK, 2016), supervised by [Prof. John C.S. Lui](https://www.cse.cuhk.edu.hk/~cslui/) at the [Advanced Networking and System Research Laboratory](http://ansrlab.cse.cuhk.edu.hk/) (ANSRLab), where I focused on graph analytics and stream processing systems. I earned my Bachelor's degree from Shanghai Jiao Tong University ([ACM Honors Class](https://acm.sjtu.edu.cn/home)).
 
 ## Publications
 
