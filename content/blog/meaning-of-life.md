@@ -20,4 +20,4 @@ tags = ["Personal"]
 
 颓唐之后，明天还是要好好工作的。想起以前香港导师的一句话，Life is tough, so you must work harder。可能这就是东亚水稻文明产出的牛马的命运吧。
 
-- 写于删掉了所有视频 APP 之后，在回家的地铁上。
+<p style="text-align: right;"><em>写于删掉了所有视频 APP 之后，在回家的地铁上。</em></p>
