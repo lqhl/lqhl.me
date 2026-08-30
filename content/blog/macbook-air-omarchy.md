@@ -3,7 +3,7 @@ title = "把一台 13 岁的 MacBook Air 装成 Omarchy"
 date = "2026-08-30T00:00:00+08:00"
 description = "把一台在抽屉里闲置多年的 2013 款 MacBook Air 装成 Omarchy。从 Hyprland 到国内办公软件，这次实验让我重新确认 Linux 桌面已经非常可用。"
 tags = ["Linux", "Omarchy", "MacBook", "Personal"]
-draft = true
+draft = false
 +++
 
 2013 年，我还在读书，用学生优惠买了自己的第一台 Mac，一台 13 英寸 MacBook Air。我目前的个人主力是一台 MacBook Pro M1，所以这台 Air 大概有四年没怎么开过机，一直躺在抽屉里。卖也卖不了几个钱，扔掉又觉得可惜。
