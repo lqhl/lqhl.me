@@ -3,15 +3,9 @@ title: "Research"
 date: 2022-12-31T22:15:29+08:00
 ---
 
-I work at the AI lab of a private quantitative hedge fund, focusing on AI infrastructure and ML systems. My research interests center on AI agents for long-horizon tasks such as agentic coding and autonomous research workflows.
+Hi there! I’m currently building computing, data, and research platforms for AI-driven quantitative research at BlackWing Asset AI Lab. My background is in large-scale systems and data infrastructure. Previously, I worked on Viking, a vector database and retrieval system for recommendation systems at ByteDance; MyScaleDB, a ClickHouse-based vector database; and large-scale automated fingerprint identification systems at Moqi AI.
 
-Before that, I was a member of Team Viking at ByteDance (2024--2026), working on the Viking engine --- an approximate nearest neighbor search engine that drives recommendation systems for TikTok and Douyin, and also powers VikingDB, the vector database of Volcano Engine.
-
-I joined Moqi as its first engineer (2017--2024) and led the infrastructure team. There, I directed the development of [MyScale](https://github.com/myscale/MyScaleDB), a high-performance vector and full-text search engine based on ClickHouse. I also built two nationwide billion-scale Automated Fingerprint Identification Systems (AFIS) for the Chinese public security, and created the world's first contactless fingerprint scanner, the Moqi A1, which achieves image quality comparable to traditional contact-based scanners.
-
-Earlier, I worked as a researcher at Huawei Noah's Ark Lab (2016--2017).
-
-I hold a PhD in Computer Science from The Chinese University of Hong Kong (CUHK, 2016), supervised by [Prof. John C.S. Lui](https://www.cse.cuhk.edu.hk/~cslui/) at the [Advanced Networking and System Research Laboratory](http://ansrlab.cse.cuhk.edu.hk/) (ANSRLab), where I focused on graph analytics and stream processing systems. I earned my Bachelor's degree from Shanghai Jiao Tong University ([ACM Honors Class](https://acm.sjtu.edu.cn/home)).
+I hold a PhD in Computer Science from the Chinese University of Hong Kong, supervised by [Prof. John C.S. Lui](https://www.cse.cuhk.edu.hk/~cslui/) at the [Advanced Networking and System Research Laboratory](http://ansrlab.cse.cuhk.edu.hk/) (ANSRLab), where I focused on graph analytics and stream processing systems. I earned my Bachelor's degree from Shanghai Jiao Tong University ([ACM Honors Class](https://acm.sjtu.edu.cn/home)).
 
 ## Publications
 
@@ -21,12 +15,12 @@ Conference:
   [Chenzi Zhang](https://scholar.google.com.hk/citations?user=vdwUDiIAAAAJ&hl=en)[^1], [Fan Wei](https://sites.google.com/view/fan-wei/home)[^1], **Qin Liu**, [Zhihao Gavin Tang](http://zhihaotang.com/), [Zhenguo Li](https://scholar.google.com/citations?user=XboZC1AAAAAJ&hl=en).  
   *The 23rd SIGKDD Conference on Knowledge Discovery and Data Mining (KDD), 2017 (oral presentation)*  
   [[paper](/publication/kdd2017.pdf)] [[code](https://github.com/ansrlab/edgepart)]  
-  (AR of papers with oral presentation: 64/748 = 8.6%) 
+  (AR of papers with oral presentation: 64/748 = 8.6%)
 - **PowerWalk: Scalable Personalized PageRank via Random Walks with Vertex-Centric Decomposition**  
   **Qin Liu**, Zhenguo Li, [John C.S. Lui](http://www.cse.cuhk.edu.hk/~cslui/), [Jiefeng Cheng](https://scholar.google.com.hk/citations?user=GKHIanEAAAAJ&hl=en).  
   *The 25th ACM International Conference on Information and Knowledge Management (CIKM), 2016 (long paper)*  
   [[paper](/publication/cikm2016.pdf)] [[slides](/publication/cikm2016-slides.pptx)] [[techreport](/publication/cikm2016-techreport.pdf)] [[code](https://github.com/lqhl/PowerWalk)]  
-  (AR of long papers: 165/935 = 17.6%) 
+  (AR of long papers: 165/935 = 17.6%)
 - **Walking in the Cloud: Parallel SimRank at Scale**  
   Zhenguo Li, [Yixiang Fang](https://fangyixiang.github.io/), **Qin Liu**, Jiefeng Cheng, [Reynold Cheng](https://i.cs.hku.hk/~ckcheng/), John C.S. Lui.  
   *Proceedings of the VLDB Endowment (PVLDB), 9(1), 2015 (also in VLDB 2016)*  
@@ -39,7 +33,7 @@ Conference:
   **Qin Liu**, John C.S. Lui, Cheng He, Lujia Pan, Wei Fan, Yunlong Shi.  
   *The 44th Annual IEEE/IFIP International Conference on Dependable Systems and Networks (DSN), 2014 (practical experience report)*  
   [[paper](/publication/dsn2014.pdf)] [[slides](/publication/dsn2014-slides.pdf)]  
-  (AR: 56/185 = 30.3%) 
+  (AR: 56/185 = 30.3%)
 - **Combining Factorization Model and Additive Forest for Collaborative Followee Recommendation**  
   [Tianqi Chen](https://tqchen.com/), [Linpeng Tang](https://chtlp.github.io/), **Qin Liu**, [Diyi Yang](https://cs.stanford.edu/~diyiy/), [Saining Xie](https://www.sainingxie.com/), [Xuezhi Cao](https://scholar.google.com.hk/citations?user=lqXw00MAAAAJ&hl=en), [Chunyang Wu](https://research.facebook.com/people/wu-chunyang/), [Enpeng Yao](http://www.yepyao.com/), [Zhengyang Liu](https://lozycs.github.io/), [Zhansheng Jiang](https://www.linkedin.com/in/zhansheng-jiang-144271ab), [Cheng Chen](https://chengchen8.github.io/), [Weihao Kong](https://weihaokong.github.io/), [Yong Yu](http://apex.sjtu.edu.cn/members/yyu).  
   *KDD-Cup Workshop, 2012 (First place in Track 1)*  
