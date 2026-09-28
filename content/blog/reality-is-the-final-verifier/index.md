@@ -10,8 +10,6 @@ tags = ["AI", "Agent", "Software Engineering", "Paper", "Translation"]
 > **作者**：Alexander Krentsel\*, Shubham Agarwal\*, Mert Cemri\*, Shu Liu\*, Sidharth Sankhe, Ziming Mao, Matei Zaharia, Ion Stoica（UC Berkeley）
 >
 > **arXiv**：<https://arxiv.org/abs/2609.12039>
->
-> 本文为该论文的完整中文翻译。图片、被引论文、作者、人名与术语缩写保留英文。
 
 ---
 
@@ -352,8 +350,6 @@ Harness 还实现了外层保障–修订循环的控制措施，包括沙箱化
 这些例子界定的是一条**连续谱**，而不是该框架的例外。随着权威意图变得更显式，需求鸿沟收窄；随着相关世界变得更有限且稳定、或随着能从数据中学习到它的忠实模型，模型鸿沟缩小；随着更强的方法在这些边界内确立一致性，评估鸿沟缩小。但这些改进中的任何一项，都不应被误认为闭合了另一条鸿沟。
 
 ## 参考文献
-
-> 以下参考文献保持英文原文。
 
 1. <a id="ref-agache-et-al-2020"></a>Agache et al. (2020) A. Agache, M. Brooker, A. Iordache, A. Liguori, R. Neugebauer, P. Piwonka, and D.-M. Popa Firecracker: lightweight virtualization for serverless applications. In Proceedings of the 17th USENIX Symposium on Networked Systems Design and Implementation (NSDI), pp. 419–434. [<https://www.usenix.org/conference/nsdi20/presentation/agache>]
 2. <a id="ref-agarwal-et-al-2026"></a>Agarwal et al. (2026) S. Agarwal, A. Krentsel, S. Liu, M. Cemri, et al. Inductive deductive synthesis: enabling AI to generate formally verified systems. [<https://arxiv.org/abs/2605.23109>]
