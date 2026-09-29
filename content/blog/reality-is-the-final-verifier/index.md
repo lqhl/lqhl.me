@@ -1,5 +1,5 @@
 +++
-title = "现实是最终的验证者：论 Agentic 软件工程中的两大关键鸿沟"
+title = "译文 | 现实是最终的验证者：论 Agentic 软件工程中的两大关键鸿沟"
 date = "2026-09-28T20:00:00+08:00"
 description = "UC Berkeley 的这篇论文提出「双鸿沟框架」：需求鸿沟（利益相关者意图 vs 写下来的需求）与模型鸿沟（真实世界 vs 环境模型）统一解释了 agentic 软件工程的两大失败模式——reward hacking 与幻觉。由于鸿沟在开放世界中无法被证明闭合，目标应转为持续收窄，并用外层的「保障–修订循环」把部署证据转化为对需求、模型与评估器的修订。"
 tags = ["AI", "Agent", "Software Engineering", "Paper", "Translation"]

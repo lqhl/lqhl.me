@@ -54,14 +54,16 @@ Front matter (TOML, this blog's convention):
 
 ```toml
 +++
-title = "…"
+title = "译文 | …"
 date = "YYYY-MM-DDTHH:MM:SS+08:00"
 description = "一两句话，会出现在首页与列表页"
 tags = ["AI", "Agent", "Software Engineering", "Paper", "Translation"]
 +++
 ```
 
-The `date` must be in the past, otherwise Hugo silently skips the page.
+The title must start with the existing translation prefix `译文 | `, followed by
+the Chinese title. The `date` must be in the past, otherwise Hugo silently
+skips the page.
 
 Then a source block, and the body:
 

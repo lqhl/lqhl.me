@@ -1,5 +1,5 @@
 +++
-title = "当模型吞下整个技术栈：重新思考数据 Agent 如何抵御「苦涩教训」"
+title = "译文 | 当模型吞下整个技术栈：重新思考数据 Agent 如何抵御「苦涩教训」"
 date = "2026-09-28T21:35:00+08:00"
 description = "随着通用模型逐步内化数据处理能力，数据系统的研究重点正从任务脚手架转向可跨查询复用的持久语义上下文。"
 tags = ["AI", "Agent", "Software Engineering", "Paper", "Translation"]
