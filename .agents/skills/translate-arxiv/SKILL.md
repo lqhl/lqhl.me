@@ -24,7 +24,7 @@ python3 -m pip install --break-system-packages beautifulsoup4 html2text   # once
 ### 1. Fetch the source
 
 ```bash
-python3 .pi/skills/translate-arxiv/scripts/fetch_arxiv.py <arxiv-url-or-id> /tmp/<id>
+python3 .agents/skills/translate-arxiv/scripts/fetch_arxiv.py <arxiv-url-or-id> /tmp/<id>
 ```
 
 Writes `paper.html`, `paper.md` (body, with `[[FIGURE: name.svg]]` markers),
@@ -96,8 +96,8 @@ copied from `refs.md`.
 ### 4. Link everything
 
 ```bash
-python3 .pi/skills/translate-arxiv/scripts/linkify.py content/blog/<slug>/index.md
-hugo && python3 .pi/skills/translate-arxiv/scripts/linkify.py content/blog/<slug>/index.md \
+python3 .agents/skills/translate-arxiv/scripts/linkify.py content/blog/<slug>/index.md
+hugo && python3 .agents/skills/translate-arxiv/scripts/linkify.py content/blog/<slug>/index.md \
   --check --verify-html docs/blog/<slug>/index.html
 ```
 
