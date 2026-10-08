@@ -1,3 +1,6 @@
 [submodule "themes/hugo-bearblog"]
 	path = themes/hugo-bearblog
 	url = https://github.com/lqhl/hugo-bearblog.git
+[submodule ".agents/skills/podcast-to-article"]
+	path = .agents/skills/podcast-to-article
+	url = https://github.com/orange2ai/podcast-to-article.git
