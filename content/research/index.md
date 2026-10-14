@@ -3,7 +3,7 @@ title: "Research"
 date: 2022-12-31T22:15:29+08:00
 ---
 
-Hi there! I’m currently building computing, data, and research platforms for AI-driven quantitative research at BlackWing Asset AI Lab. My background is in large-scale systems and data infrastructure. Previously, I worked on Viking, a vector database and retrieval system for recommendation systems at ByteDance; MyScaleDB, a ClickHouse-based vector database; and large-scale automated fingerprint identification systems at Moqi AI.
+Hi! I'm Qin Liu (刘勤). I’m currently building computing, data, and research platforms for AI-driven quantitative research at the AI Lab at BlackWing Asset Management. My background is in large-scale systems and data infrastructure. Previously, I worked on Viking Engine at ByteDance, a large-scale vector search infrastructure powering VikingDB and recommendation systems across ByteDance. I contributed to the development of the core engine, internal VikingDB services, and vector retrieval systems for products such as Douyin. I also worked on [MyScaleDB](https://github.com/myscale/MyScaleDB), a ClickHouse-based vector database, and large-scale automated fingerprint identification systems (AFIS) at Moqi AI.
 
 I hold a PhD in Computer Science from the Chinese University of Hong Kong, supervised by [Prof. John C.S. Lui](https://www.cse.cuhk.edu.hk/~cslui/) at the [Advanced Networking and System Research Laboratory](http://ansrlab.cse.cuhk.edu.hk/) (ANSRLab), where I focused on graph analytics and stream processing systems. I earned my Bachelor's degree from Shanghai Jiao Tong University ([ACM Honors Class](https://acm.sjtu.edu.cn/home)).
 
